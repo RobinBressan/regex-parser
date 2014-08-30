@@ -2,6 +2,8 @@
 
 namespace RegexParser\Lexer;
 
+use RegexParser\Lexer\Exception\LexerException;
+
 class Lexer
 {
     protected $stream;
@@ -68,13 +70,13 @@ class Lexer
         if ($char === '\\') {
             if ($this->stream->readAt(1) === '\\') {
                 $this->stream->next();
-                return new Token('T_CHAR', '\\');
+                return new Token('T_BACKSLASH', '\\');
             } else {
                 return new Token('T_CHAR', $this->stream->next());
             }
         }
 
-        throw new \Exception('Lexer error for ' . $char . ' at ' . $this->stream->cursor());
+        throw new LexerException(sprintf('Unknown token %s at %s', $char, $this->stream->cursor()));
     }
 
     private function isWhitespace($char)

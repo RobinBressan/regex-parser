@@ -11,7 +11,14 @@
     },
     "autoload": {
         "psr-0": {
-            "RegexParser\\": "src/"
+            "RegexParser\\": [
+                "src/",
+                "test/"
+            ]
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.32",
+        "phpspec/prophecy": "~1.0"
     }
 }
