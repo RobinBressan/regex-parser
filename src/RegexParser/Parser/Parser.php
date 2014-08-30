@@ -59,7 +59,7 @@ class Parser
         );
     }
 
-    private function buildDomDocument($stream)
+    private function buildDomDocument(StreamInterface $stream)
     {
         $document = new \DomDocument('1.0', 'utf-8');
         $ast = $document->createElement('ast');
