@@ -1,0 +1,17 @@
+{
+    "name": "RobinBressan/regex-ast",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robin Bressan",
+            "email": "robin@buddey.net"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-0": {
+            "RegexParser\\": "src/"
+        }
+    }
+}
