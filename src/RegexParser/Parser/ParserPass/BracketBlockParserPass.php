@@ -61,7 +61,6 @@ class BracketBlockParserPass extends AbstractParserPass
 
         if ($blocksFound > 0) {
             throw new ParserException('Bracket block not closed');
-
         }
 
         return new Stream($result);

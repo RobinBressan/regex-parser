@@ -45,7 +45,6 @@ class CommentParserPass extends AbstractParserPass
 
         if ($commentFound) {
             throw new ParserException("Comment not closed");
-
         }
 
         return new Stream($result);

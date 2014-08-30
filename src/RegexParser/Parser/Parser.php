@@ -7,6 +7,7 @@ use RegexParser\Parser\ParserPass\CommentParserPass;
 use RegexParser\Parser\ParserPass\BracketBlockParserPass;
 use RegexParser\Parser\ParserPass\ParenthesisBlockParserPass;
 use RegexParser\Parser\ParserPass\CharacterClassParserPass;
+use RegexParser\Parser\ParserPass\AlternativeParserPass;
 use RegexParser\Parser\ParserPass\RepetitionParserPass;
 use RegexParser\StreamInterface;
 use RegexParser\Stream;
@@ -18,11 +19,11 @@ class Parser
     public static function create()
     {
         $parser = new self();
-        $parser->registerParserPass(new CommentParserPass());
+        $parser->registerParserPass(new CommentParserPass()); // will remove all comments
         $parser->registerParserPass(new BracketBlockParserPass());
         $parser->registerParserPass(new ParenthesisBlockParserPass());
         $parser->registerParserPass(new CharacterClassParserPass());
-
+        $parser->registerParserPass(new AlternativeParserPass());
         $parser->registerParserPass(new RepetitionParserPass()); // must be the last one
 
         return $parser;

@@ -6,8 +6,6 @@ use RegexParser\Parser\AbstractNode;
 
 class BlockNode extends AbstractNode
 {
-    protected $tokens;
-
     protected $isSubPattern;
 
     public function __construct(array $childNodes, $isSubPattern = false) {

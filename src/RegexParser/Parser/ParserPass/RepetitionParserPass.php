@@ -23,25 +23,40 @@ class RepetitionParserPass extends AbstractParserPass
         $result = array();
 
         while ($token = $stream->next()) {
-            if ($stream->cursor() < 1 || !($token instanceof TokenInterface)) {
+            if (!($token instanceof TokenInterface)) {
                 $result[] = $token;
                 continue;
             }
 
             // Looking for `*` pattern
             if ($token->is('T_MULTIPLY')) {
+                if ($stream->cursor() < 1) {
+                    throw new ParserException('A repetition pattern must follow a token');
+                }
+
                 // We remove the last token
                 array_pop($result);
                 $result[] = new RepetitionNode(0, null, array($stream->readAt(-1)));
             } else if ($token->is('T_PLUS')) { // Looking for `+` pattern
+                if ($stream->cursor() < 1) {
+                    throw new ParserException('A repetition pattern must follow a token');
+                }
+
                 // We remove the last token
                 array_pop($result);
                 $result[] = new RepetitionNode(1, null, array($stream->readAt(-1)));
             } else if ($token->is('T_QUESTION')) { // Looking for `?` pattern
+                if ($stream->cursor() < 1) {
+                    throw new ParserException('A repetition pattern must follow a token');
+                }
+
                 // We remove the last token
                 array_pop($result);
                 $result[] = new RepetitionNode(0, 1, array($stream->readAt(-1)));
             } else if ($token->is('T_LEFT_BRACE')) {
+                if ($stream->cursor() < 1) {
+                    throw new ParserException('A repetition pattern must follow a token');
+                }
                 $blockFound = true;
             } else if ($blockFound && $token->is('T_INTEGER')) {
                 $stack[$step][] = $token;
