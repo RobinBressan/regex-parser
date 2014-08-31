@@ -22,13 +22,4 @@ class RepetitionNode extends AbstractNode
     {
         return $this->value['max'];
     }
-
-    protected function _getDomNode(\DomDocument $document, \DomNode $node)
-    {
-        $node->setAttribute('min', $this->getMin());
-
-        if ($this->getMax() !== null) {
-            $node->setAttribute('max', $this->getMax());
-        }
-    }
 }

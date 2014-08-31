@@ -54,22 +54,6 @@ class Parser
             $tokens[] = $token;
         }
 
-        return $this->buildDomDocument(
-            $this->parseStream(new Stream($tokens))
-        );
-    }
-
-    private function buildDomDocument(StreamInterface $stream)
-    {
-        $document = new \DomDocument('1.0', 'utf-8');
-        $ast = $document->createElement('ast');
-
-        while ($node = $stream->next()) {
-            $ast->appendChild($node->getDomNode($document));
-        }
-
-        $document->appendChild($ast);
-
-        return $document;
+        return $this->parseStream(new Stream($tokens));
     }
 }

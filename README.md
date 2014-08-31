@@ -1,7 +1,7 @@
 regex-parser
 ============
 
-RegexParser is a parser for PCRE regex. It produces a DomDocument which represents the AST of your regex.
+RegexParser is a parser for PCRE regex. It produces an AST which represents your regex.
 It can help you generating some inputs which match your regex.
 
 Installation
@@ -21,8 +21,24 @@ To build an AST you need to create a parser:
 ```php
 $parser = \RegexParser\Parser\Parser::create();
 
-$ast = $parser->parse('YOUR_REGEX'); // $ast is an instance of DomDocument
+$ast = $parser->parse('YOUR_REGEX');
 ```
+
+You can now use a formatter to convert the AST to several format (only XML is supported today):
+
+```php
+$formatter = new \RegexParser\Parser\Formatter\XMLFormatter();
+
+$xml = $formatter->format($ast); // $xml is now an instance of DOMDocument
+```
+
+If you wish you can display it easily:
+```php
+$xml->formatOutput = true;
+echo $xml->saveXML();
+```
+
+Because you can get a DOMDocument, you are able to use XPath engine to query your AST.
 
 Example
 -------

@@ -4,7 +4,7 @@ namespace RegexParser\Lexer;
 
 use RegexParser\DomableInterface;
 
-interface TokenInterface extends DomableInterface
+interface TokenInterface
 {
     public function is($tokenName);
 

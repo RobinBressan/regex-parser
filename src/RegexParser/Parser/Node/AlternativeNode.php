@@ -24,10 +24,4 @@ class AlternativeNode extends AbstractNode
     {
         return $this->value['next'];
     }
-
-    protected function _getDomNode(\DomDocument $document, \DomNode $node)
-    {
-        $node->appendChild($this->getPrevious()->getDomNode($document));
-        $node->appendChild($this->getNext()->getDomNode($document));
-    }
 }

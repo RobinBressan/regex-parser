@@ -22,10 +22,4 @@ class CharacterClassNode extends AbstractNode
     {
         return $this->value['end'];
     }
-
-    protected function _getDomNode(\DomDocument $document, \DomNode $node)
-    {
-        $node->appendChild($this->getStart()->getDomNode($document));
-        $node->appendChild($this->getEnd()->getDomNode($document));
-    }
 }

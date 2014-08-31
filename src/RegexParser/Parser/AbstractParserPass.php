@@ -14,6 +14,7 @@ abstract class AbstractParserPass implements ParserPassInterface
     public function getName()
     {
         $className = explode('\\', get_class($this));
+
         return array_pop($className);
     }
 }

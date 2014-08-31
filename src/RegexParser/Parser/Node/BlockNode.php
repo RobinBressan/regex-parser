@@ -17,9 +17,4 @@ class BlockNode extends AbstractNode
     {
         return $this->isSubPattern;
     }
-
-    protected function _getDomNode(\DomDocument $document, \DomNode $node)
-    {
-        $node->setAttribute('sub-pattern', $this->isSubPattern ? 'true' : 'false');
-    }
 }
