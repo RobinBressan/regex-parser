@@ -9,7 +9,7 @@ use RegexParser\Test\ProphecyTestCase;
 
 class LexerTest extends ProphecyTestCase
 {
-    public function testItShouldReturnNextToken()
+    public function testItShouldReturnNextTokenWhenICallNextTokenMethod()
     {
         $stringStreamProphecy = $this->prophet->prophesize('RegexParser\Lexer\StringStream');
 
