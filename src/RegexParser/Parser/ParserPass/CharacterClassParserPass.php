@@ -4,6 +4,7 @@ namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
 use RegexParser\Parser\Node\CharacterClassNode;
+use RegexParser\Parser\Node\TokenNode;
 use RegexParser\Parser\AbstractParserPass;
 use RegexParser\StreamInterface;
 use RegexParser\Stream;
@@ -31,7 +32,7 @@ class CharacterClassParserPass extends AbstractParserPass
                 array_pop($result);
                 array_pop($result);
 
-                $result[] = new CharacterClassNode($stream->readAt(-2), $token);
+                $result[] = new CharacterClassNode(new TokenNode($stream->readAt(-2)), new TokenNode($token));
             } else {
                 $result[] = $token;
             }

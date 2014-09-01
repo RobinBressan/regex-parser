@@ -1,8 +1,6 @@
 <?php
 
-namespace RegexParser\Parser;
-
-use RegexParser\StreamInterface;
+namespace RegexParser;
 
 interface FormatterInterface
 {

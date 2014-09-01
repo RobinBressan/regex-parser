@@ -1,13 +1,13 @@
 <?php
 
-namespace RegexParser\Parser\Formatter;
+namespace RegexParser\Formatter;
 
-use RegexParser\Lexer\TokenInterface;
-use RegexParser\Parser\AbstractFormatter;
+use RegexParser\AbstractFormatter;
 use RegexParser\Parser\Node\AlternativeNode;
 use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Parser\Node\CharacterClassNode;
 use RegexParser\Parser\Node\RepetitionNode;
+use RegexParser\Parser\Node\TokenNode;
 
 class XMLFormatter extends AbstractFormatter
 {
@@ -44,8 +44,8 @@ class XMLFormatter extends AbstractFormatter
 
     protected function _formatNode($node)
     {
-        if ($node instanceof TokenInterface) {
-            return $this->formatToken($node);
+        if ($node instanceof TokenNode) {
+            $xmlNode = $this->formatTokenNode($node);
         } else if ($node instanceof AlternativeNode) {
             $xmlNode = $this->formatAlternativeNode($node);
         } else if ($node instanceof BlockNode) {
@@ -63,10 +63,10 @@ class XMLFormatter extends AbstractFormatter
         return $xmlNode;
     }
 
-    protected function formatToken(TokenInterface $token)
+    protected function formatTokenNode(TokenNode $node)
     {
-        $xmlNode = $this->createXmlNode('token', $token->getValue());
-        $xmlNode->setAttribute('type', str_replace('_', '-', strtolower(substr($token->getName(), 2))));
+        $xmlNode = $this->createXmlNode('token', $node->getValue()->getValue());
+        $xmlNode->setAttribute('type', str_replace('_', '-', strtolower(substr($node->getValue()->getName(), 2))));
 
         return $xmlNode;
     }

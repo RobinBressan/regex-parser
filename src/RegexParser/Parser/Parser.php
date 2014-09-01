@@ -9,6 +9,7 @@ use RegexParser\Parser\ParserPass\ParenthesisBlockParserPass;
 use RegexParser\Parser\ParserPass\CharacterClassParserPass;
 use RegexParser\Parser\ParserPass\AlternativeParserPass;
 use RegexParser\Parser\ParserPass\RepetitionParserPass;
+use RegexParser\Parser\ParserPass\TokenParserPass;
 use RegexParser\StreamInterface;
 use RegexParser\Stream;
 
@@ -24,7 +25,8 @@ class Parser
         $parser->registerParserPass(new ParenthesisBlockParserPass());
         $parser->registerParserPass(new CharacterClassParserPass());
         $parser->registerParserPass(new AlternativeParserPass());
-        $parser->registerParserPass(new RepetitionParserPass()); // must be the last one
+        $parser->registerParserPass(new RepetitionParserPass()); // must be the last one juste before token pass
+        $parser->registerParserPass(new TokenParserPass()); // must be the last one juste before token pass
 
         return $parser;
     }

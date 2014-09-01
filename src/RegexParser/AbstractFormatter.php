@@ -1,13 +1,13 @@
 <?php
 
-namespace RegexParser\Parser;
-
-use RegexParser\StreamInterface;
+namespace RegexParser;
 
 abstract class AbstractFormatter implements FormatterInterface
 {
     public function format(StreamInterface $stream)
     {
+        $stream = clone($stream);
+
         $this->preFormat();
 
         while ($node = $stream->next()) {

@@ -48,4 +48,9 @@ class Stream implements StreamInterface
     {
         return $this->input;
     }
+
+    public function __clone()
+    {
+        return new Stream($this->input);
+    }
 }

@@ -15,4 +15,6 @@ interface StreamInterface
     public function hasNext();
 
     public function cursor();
+
+    public function __clone();
 }
