@@ -3,6 +3,7 @@
 namespace RegexParser\Parser;
 
 use RegexParser\Lexer\Lexer;
+use RegexParser\Lexer\TokenStream;
 use RegexParser\Parser\ParserPass\CommentParserPass;
 use RegexParser\Parser\ParserPass\BracketBlockParserPass;
 use RegexParser\Parser\ParserPass\ParenthesisBlockParserPass;
@@ -50,12 +51,6 @@ class Parser
     public function parse($input)
     {
         $lexer = Lexer::create($input);
-
-        $tokens = array();
-        while ($token = $lexer->nextToken()) {
-            $tokens[] = $token;
-        }
-
-        return $this->parseStream(new Stream($tokens));
+        return $this->parseStream(new TokenStream($lexer));
     }
 }

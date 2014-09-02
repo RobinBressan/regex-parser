@@ -49,6 +49,11 @@ class Lexer
         return new self(new StringStream($input));
     }
 
+    public function getStream()
+    {
+        return $this->stream;
+    }
+
     public function nextToken()
     {
         if (($char = $this->stream->next()) === false) {
