@@ -1,0 +1,19 @@
+[8gha-z0-9-]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<ast>
+  <block sub-pattern="false">
+    <token type="integer">8</token>
+    <token type="char">g</token>
+    <token type="char">h</token>
+    <character-class>
+      <token type="char">a</token>
+      <token type="char">z</token>
+    </character-class>
+    <character-class>
+      <token type="integer">0</token>
+      <token type="integer">9</token>
+    </character-class>
+    <token type="minus">-</token>
+  </block>
+</ast>
