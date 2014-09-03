@@ -20,7 +20,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider patternProvider
      */
-    public function testPattern($input, $expectedOutput)
+    public function testPattern($input, $expectedOutput, $filename)
     {
         $expectedOutputDOM = new \DOMDocument('1.0', 'utf-8');
         $expectedOutputDOM->preserveWhiteSpace = false;
@@ -32,7 +32,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
           $expectedOutputDOM->saveXML(),
-          $xml->saveXML()
+          $xml->saveXML(),
+          sprintf('%s does not match the generated xml', $filename)
         );
     }
 
@@ -50,6 +51,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
             $content = file_get_contents($file->getPathName());
             $data[] = array_map('trim', explode('----', $content));
+            $data[count($data) - 1][] = $file->getFilename();
         }
 
         return $data;
