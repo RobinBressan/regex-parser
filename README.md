@@ -48,21 +48,22 @@ The regex `^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <ast>
-  <token type="hat">^</token>
-  <repetition min="1">
-    <block sub-pattern="false">
-      <token type="underscore">_</token>
-      <character-class>
-        <token type="char">a</token>
-        <token type="char">z</token>
-      </character-class>
-      <character-class>
-        <token type="integer">0</token>
-        <token type="integer">9</token>
-      </character-class>
-      <token type="minus">-</token>
-    </block>
-  </repetition>
+  <begin>
+    <repetition min="1">
+      <block sub-pattern="false">
+        <token type="underscore">_</token>
+        <character-class>
+          <token type="char">a</token>
+          <token type="char">z</token>
+        </character-class>
+        <character-class>
+          <token type="integer">0</token>
+          <token type="integer">9</token>
+        </character-class>
+        <token type="minus">-</token>
+      </block>
+    </repetition>
+  </begin>
   <repetition min="0">
     <block sub-pattern="true">
       <token type="char">.</token>
@@ -114,18 +115,19 @@ The regex `^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$
       </repetition>
     </block>
   </repetition>
-  <block sub-pattern="true">
-    <token type="char">.</token>
-    <repetition min="2" max="4">
-      <block sub-pattern="false">
-        <character-class>
-          <token type="char">a</token>
-          <token type="char">z</token>
-        </character-class>
-      </block>
-    </repetition>
-  </block>
-  <token type="dollar">$</token>
+  <end>
+    <block sub-pattern="true">
+      <token type="char">.</token>
+      <repetition min="2" max="4">
+        <block sub-pattern="false">
+          <character-class>
+            <token type="char">a</token>
+            <token type="char">z</token>
+          </character-class>
+        </block>
+      </repetition>
+    </block>
+  </end>
 </ast>
 ```
 
@@ -139,7 +141,7 @@ $generator = new \RegexParser\Generator\RandomGenerator($ast);
 $generator->generate($seed = null);
 ```
 
-If you wish you also create directly the generator :
+If you wish you can also create directly the generator :
 
 ```php
 $generator = new \RegexParser\Generator\RandomGenerator::create('YOUR_REGEX');
