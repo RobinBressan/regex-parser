@@ -11,7 +11,7 @@ use RegexParser\Stream;
 
 class BracketBlockParserPass extends AbstractParserPass
 {
-    public function parseStream(StreamInterface $stream)
+    public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $blocksFound = 0;
         $stack = array();
@@ -40,7 +40,7 @@ class BracketBlockParserPass extends AbstractParserPass
                     $result[] = new BlockNode(
                         $this
                             ->parser
-                            ->parseStream(new Stream($stack), array(
+                            ->parseStream(new Stream($stack), 'BracketBlockParserPass', array(
                                 'BracketBlockParserPass'
                             ))
                             ->input()

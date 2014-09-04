@@ -11,7 +11,7 @@ use RegexParser\Stream;
 
 class AlternativeParserPass extends AbstractParserPass
 {
-    public function parseStream(StreamInterface $stream)
+    public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $result = array();
 

@@ -12,11 +12,27 @@ abstract class AbstractNode implements NodeInterface
 
     protected $value = null;
 
+    protected $parent = null;
+
     public function __construct($name, $value, $childNodes = array())
     {
         $this->name = $name;
         $this->value = $value;
         $this->childNodes = $childNodes;
+
+        foreach ($this->childNodes as $childNode) {
+            $childNode->setParent($this);
+        }
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function setParent(NodeInterface $parent)
+    {
+        $this->parent = $parent;
     }
 
     public function getName()

@@ -3,6 +3,7 @@
 namespace RegexParser\Generator;
 
 use RegexParser\AbstractGenerator;
+use RegexParser\Parser\Parser;
 use RegexParser\Parser\Node\AlternativeNode;
 use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Parser\Node\CharacterClassNode;
@@ -11,6 +12,13 @@ use RegexParser\Parser\Node\TokenNode;
 
 class RandomGenerator extends AbstractGenerator
 {
+    public static function create($pattern)
+    {
+        $parser = Parser::create();
+
+        return new self($parser->parse($pattern));
+    }
+
     public function generate($seed = null)
     {
         if ($seed !== null) {
@@ -19,8 +27,8 @@ class RandomGenerator extends AbstractGenerator
 
         $output = '';
 
-        while ($node = $this->stream->next()) {
-            $output .= $this->printNode($node);
+        foreach ($this->ast->getChildNodes() as $childNode) {
+            $output .= $this->printNode($childNode);
         }
 
         return $output;
@@ -96,7 +104,8 @@ class RandomGenerator extends AbstractGenerator
     {
         $token = $node->getValue();
 
-        if ($token->is('T_PERIOD')) {
+        if ($token->is('T_PERIOD') &&
+             (!($node->getParent() instanceof BlockNode) || ($node->getParent() instanceof BlockNode && $node->getParent()->isSubPattern()))) {
             $range = range('a', 'Z');
             return $range[mt_rand(0, count($range) - 1)];
         }

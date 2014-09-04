@@ -8,7 +8,7 @@ interface ParserPassInterface
 {
     public function setParser(Parser $parse);
 
-    public function parseStream(StreamInterface $stream);
+    public function parseStream(StreamInterface $stream, $parentPass);
 
     public function getName();
 }

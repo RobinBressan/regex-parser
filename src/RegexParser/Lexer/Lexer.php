@@ -36,7 +36,8 @@ class Lexer
         '"' =>  'T_DOUBLE_QUOTE',
         '/' =>  'T_SLASH',
         '_' =>  'T_UNDERSCORE',
-        '@' =>  'T_AT'
+        '@' =>  'T_AT',
+        ';' =>  'T_SEMI_COLON'
     );
 
     public function __construct(StringStream $stream)

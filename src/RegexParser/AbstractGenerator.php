@@ -2,12 +2,14 @@
 
 namespace RegexParser;
 
+use RegexParser\Parser\NodeInterface;
+
 abstract class AbstractGenerator implements GeneratorInterface
 {
-    protected $stream;
+    protected $ast;
 
-    public function __construct(StreamInterface $stream)
+    public function __construct(NodeInterface $ast)
     {
-        $this->stream = clone($stream);
+        $this->ast = $ast;
     }
 }

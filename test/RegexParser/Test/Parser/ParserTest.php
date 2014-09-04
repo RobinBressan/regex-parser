@@ -45,7 +45,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $iterator = new \RecursiveIteratorIterator($dirIterator, \RecursiveIteratorIterator::CHILD_FIRST);
 
         foreach ($iterator as $file) {
-            if (!$file->isFile()) {
+            if (!$file->isFile() || $file->getExtension() !== 'txt') {
                 continue;
             }
 

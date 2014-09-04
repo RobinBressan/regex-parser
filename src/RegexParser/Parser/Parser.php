@@ -4,6 +4,7 @@ namespace RegexParser\Parser;
 
 use RegexParser\Lexer\Lexer;
 use RegexParser\Lexer\TokenStream;
+use RegexParser\Parser\Node\ASTNode;
 use RegexParser\Parser\ParserPass\CommentParserPass;
 use RegexParser\Parser\ParserPass\BracketBlockParserPass;
 use RegexParser\Parser\ParserPass\ParenthesisBlockParserPass;
@@ -38,11 +39,11 @@ class Parser
         $this->parserPasses[] = $parserPass;
     }
 
-    public function parseStream(StreamInterface $stream, $excludedPasses = array())
+    public function parseStream(StreamInterface $stream, $parentPass = null, $excludedPasses = array())
     {
         foreach ($this->parserPasses as $parserPass) {
             if (!in_array($parserPass->getName(), $excludedPasses)) {
-                $stream = $parserPass->parseStream($stream);
+                $stream = $parserPass->parseStream($stream, $parentPass);
             }
         }
         return $stream;
@@ -51,6 +52,8 @@ class Parser
     public function parse($input)
     {
         $lexer = Lexer::create($input);
-        return $this->parseStream(new TokenStream($lexer));
+        $outputStream = $this->parseStream(new TokenStream($lexer));
+
+        return new ASTNode($outputStream->input());
     }
 }

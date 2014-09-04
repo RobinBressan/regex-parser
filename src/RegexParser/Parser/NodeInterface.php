@@ -11,4 +11,8 @@ interface NodeInterface
     public function getValue();
 
     public function getChildNodes();
+
+    public function getParent();
+
+    public function setParent(NodeInterface $parent);
 }

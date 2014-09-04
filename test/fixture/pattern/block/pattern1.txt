@@ -1,0 +1,12 @@
+[(a-z)]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<ast>
+  <block sub-pattern="false">
+    <block sub-pattern="true">
+        <token type="char">a</token>
+        <token type="minus">-</token>
+        <token type="char">z</token>
+    </block>
+  </block>
+</ast>

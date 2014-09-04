@@ -12,7 +12,7 @@ use RegexParser\Stream;
 
 class RepetitionParserPass extends AbstractParserPass
 {
-    public function parseStream(StreamInterface $stream)
+    public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $blockFound = false;
         $stack = array(

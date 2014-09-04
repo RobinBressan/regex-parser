@@ -10,7 +10,7 @@ use RegexParser\Stream;
 
 class CommentParserPass extends AbstractParserPass
 {
-    public function parseStream(StreamInterface $stream)
+    public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $commentFound = false;
         $stack = array();

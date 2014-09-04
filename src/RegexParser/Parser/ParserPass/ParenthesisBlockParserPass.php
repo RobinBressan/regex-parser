@@ -11,7 +11,7 @@ use RegexParser\Stream;
 
 class ParenthesisBlockParserPass extends AbstractParserPass
 {
-    public function parseStream(StreamInterface $stream)
+    public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $blocksFound = 0;
         $stack = array();

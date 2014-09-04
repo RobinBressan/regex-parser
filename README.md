@@ -1,4 +1,4 @@
-regex-parser
+RegexParser
 ============
 
 RegexParser is a parser for PCRE regex. It produces an AST which represents your regex.
@@ -128,6 +128,28 @@ The regex `^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$
   <token type="dollar">$</token>
 </ast>
 ```
+
+Generator
+---------
+
+You can also create a generator based on your AST which will generate a string that match your regex:
+
+```php
+$generator = new \RegexParser\Generator\RandomGenerator($ast);
+$generator->generate($seed = null);
+```
+
+If you wish you also create directly the generator :
+
+```php
+$generator = new \RegexParser\Generator\RandomGenerator::create('YOUR_REGEX');
+$generator->generate($seed = null);
+```
+
+Test
+----
+
+To run the test you must run `phpunit` command.
 
 Contributing
 ------------

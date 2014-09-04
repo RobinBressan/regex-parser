@@ -3,6 +3,8 @@
 namespace RegexParser\Formatter;
 
 use RegexParser\AbstractFormatter;
+use RegexParser\Parser\NodeInterface;
+use RegexParser\Parser\Node\ASTNode;
 use RegexParser\Parser\Node\AlternativeNode;
 use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Parser\Node\CharacterClassNode;
@@ -13,23 +15,10 @@ class XMLFormatter extends AbstractFormatter
 {
     protected $document;
 
-    protected $ast;
-
-    public function preFormat()
+    public function format(NodeInterface $ast)
     {
         $this->document = new \DomDocument('1.0', 'utf-8');
-        $this->ast = $this->document->createElement('ast');
-    }
-
-    public function formatNode($node)
-    {
-        $this->ast->appendChild($this->_formatNode($node));
-    }
-
-    public function postFormat()
-    {
-        $this->document->appendChild($this->ast);
-
+        $this->document->appendChild($this->formatNode($ast));
         return $this->document;
     }
 
@@ -42,9 +31,11 @@ class XMLFormatter extends AbstractFormatter
         return $this->document->createElement($name);
     }
 
-    protected function _formatNode($node)
+    protected function formatNode($node)
     {
-        if ($node instanceof TokenNode) {
+        if ($node instanceof ASTNode) {
+            $xmlNode = $this->formatASTNode($node);
+        } else if ($node instanceof TokenNode) {
             $xmlNode = $this->formatTokenNode($node);
         } else if ($node instanceof AlternativeNode) {
             $xmlNode = $this->formatAlternativeNode($node);
@@ -57,8 +48,15 @@ class XMLFormatter extends AbstractFormatter
         }
 
         foreach ($node->getChildNodes() as $childNode) {
-            $xmlNode->appendChild($this->_formatNode($childNode));
+            $xmlNode->appendChild($this->formatNode($childNode));
         }
+
+        return $xmlNode;
+    }
+
+    protected function formatASTNode(ASTNode $node)
+    {
+        $xmlNode = $this->createXmlNode('ast');
 
         return $xmlNode;
     }
@@ -74,8 +72,8 @@ class XMLFormatter extends AbstractFormatter
     protected function formatAlternativeNode(AlternativeNode $node)
     {
         $xmlNode = $this->createXmlNode($node->getName());
-        $xmlNode->appendChild($this->_formatNode($node->getPrevious()));
-        $xmlNode->appendChild($this->_formatNode($node->getNext()));
+        $xmlNode->appendChild($this->formatNode($node->getPrevious()));
+        $xmlNode->appendChild($this->formatNode($node->getNext()));
 
         return $xmlNode;
     }
@@ -91,8 +89,8 @@ class XMLFormatter extends AbstractFormatter
     protected function formatCharacterClassNode(CharacterClassNode $node)
     {
         $xmlNode = $this->createXmlNode($node->getName());
-        $xmlNode->appendChild($this->_formatNode($node->getStart()));
-        $xmlNode->appendChild($this->_formatNode($node->getEnd()));
+        $xmlNode->appendChild($this->formatNode($node->getStart()));
+        $xmlNode->appendChild($this->formatNode($node->getEnd()));
 
         return $xmlNode;
     }

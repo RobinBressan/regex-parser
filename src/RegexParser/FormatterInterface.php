@@ -2,7 +2,9 @@
 
 namespace RegexParser;
 
+use RegexParser\Parser\NodeInterface;
+
 interface FormatterInterface
 {
-    public function format(StreamInterface $stream);
+    public function format(NodeInterface $ast);
 }
