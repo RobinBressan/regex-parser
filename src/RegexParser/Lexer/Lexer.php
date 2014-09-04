@@ -74,6 +74,11 @@ class Lexer
             $token = $this->stream->current();
         } else {
             $token = '';
+            if ($this->stream->readAt(1) === '^') {
+                $isExclusionSequence = true;
+                $this->stream->next();
+            }
+
             do {
                 $char = $this->stream->next();
 
