@@ -9,6 +9,9 @@ use RegexParser\Parser\Node\AlternativeNode;
 use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Parser\Node\CharacterClassNode;
 use RegexParser\Parser\Node\RepetitionNode;
+use RegexParser\Parser\Node\ExclusionNode;
+use RegexParser\Parser\Node\BeginNode;
+use RegexParser\Parser\Node\EndNode;
 use RegexParser\Parser\Node\TokenNode;
 
 class XMLFormatter extends AbstractFormatter
@@ -45,6 +48,12 @@ class XMLFormatter extends AbstractFormatter
             $xmlNode = $this->formatCharacterClassNode($node);
         } else if ($node instanceof RepetitionNode) {
             $xmlNode = $this->formatRepetitionNode($node);
+        } else if ($node instanceof ExclusionNode) {
+            $xmlNode = $this->formatExclusionNode($node);
+        } else if ($node instanceof BeginNode) {
+            $xmlNode = $this->formatBeginNode($node);
+        } else if ($node instanceof EndNode) {
+            $xmlNode = $this->formatEndNode($node);
         }
 
         foreach ($node->getChildNodes() as $childNode) {
@@ -103,6 +112,27 @@ class XMLFormatter extends AbstractFormatter
         if ($node->getMax() !== null) {
             $xmlNode->setAttribute('max', $node->getMax());
         }
+
+        return $xmlNode;
+    }
+
+    protected function formatExclusionNode(ExclusionNode $node)
+    {
+        $xmlNode = $this->createXmlNode($node->getName());
+
+        return $xmlNode;
+    }
+
+    protected function formatBeginNode(BeginNode $node)
+    {
+        $xmlNode = $this->createXmlNode($node->getName());
+
+        return $xmlNode;
+    }
+
+    protected function formatEndNode(EndNode $node)
+    {
+        $xmlNode = $this->createXmlNode($node->getName());
 
         return $xmlNode;
     }

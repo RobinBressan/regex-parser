@@ -8,6 +8,8 @@ use RegexParser\Parser\Node\AlternativeNode;
 use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Parser\Node\CharacterClassNode;
 use RegexParser\Parser\Node\RepetitionNode;
+use RegexParser\Parser\Node\BeginNode;
+use RegexParser\Parser\Node\EndNode;
 use RegexParser\Parser\Node\TokenNode;
 
 class RandomGenerator extends AbstractGenerator
@@ -46,6 +48,10 @@ class RandomGenerator extends AbstractGenerator
             return $this->printRepetitionNode($node);
         } else if ($node instanceof TokenNode) {
             return $this->printTokenNode($node);
+        } else if ($node instanceof BeginNode) {
+            return $this->printBeginNode($node);
+        } else if ($node instanceof EndNode) {
+            return $this->printEndNode($node);
         }
     }
 
@@ -73,6 +79,30 @@ class RandomGenerator extends AbstractGenerator
         }
 
         return $this->printNode($childNodes[mt_rand(0, count($childNodes) - 1)]);
+    }
+
+    protected function printBeginNode(BeginNode $node)
+    {
+        $childNodes = $node->getChildNodes();
+        $output = '';
+
+        foreach ($childNodes as $childNode) {
+            $output .= $this->printNode($childNode);
+        }
+
+        return $output;
+    }
+
+    protected function printEndNode(EndNode $node)
+    {
+        $childNodes = $node->getChildNodes();
+        $output = '';
+
+        foreach ($childNodes as $childNode) {
+            $output .= $this->printNode($childNode);
+        }
+
+        return $output;
     }
 
     protected function printCharacterClassNode(CharacterClassNode $node)

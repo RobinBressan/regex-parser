@@ -1,0 +1,20 @@
+[^a-zA-Zkl;]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<ast>
+    <block sub-pattern="false">
+        <exclusion>
+            <character-class>
+                <token type="char">a</token>
+                <token type="char">z</token>
+            </character-class>
+            <character-class>
+                <token type="char">A</token>
+                <token type="char">Z</token>
+            </character-class>
+            <token type="char">k</token>
+            <token type="char">l</token>
+            <token type="semi-colon">;</token>
+        </exclusion>
+    </block>
+</ast>
