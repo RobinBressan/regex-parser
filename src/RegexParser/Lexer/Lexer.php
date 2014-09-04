@@ -51,10 +51,11 @@ class Lexer
         }
 
         if ($char === '\\') {
-            if ($this->stream->readAt(1) === '\\') {
+            $readAt1 = $this->stream->readAt(1);
+            if ($readAt1 === '\\') {
                 $this->stream->next();
                 return new Token('T_BACKSLASH', '\\');
-            } else if (($this->stream->readAt(1) === 'p' || $this->stream->readAt(1) === 'P')) {
+            } else if (($readAt1 === 'p' || $readAt1 === 'P')) {
                 return $this->readUnicode();
             } else {
                 return new Token('T_CHAR', $this->stream->next());
