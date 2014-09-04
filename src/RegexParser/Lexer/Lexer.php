@@ -3,6 +3,7 @@
 namespace RegexParser\Lexer;
 
 use RegexParser\Lexer\Exception\LexerException;
+use Symfony\Component\Yaml\Parser;
 
 class Lexer
 {
@@ -10,39 +11,15 @@ class Lexer
 
     protected $currentChar;
 
-    protected $lexemeMap = array (
-        '^' =>  'T_HAT',
-        '$' =>  'T_DOLLAR',
-        '.' =>  'T_PERIOD',
-        '[' =>  'T_LEFT_BRACKET',
-        ']' =>  'T_RIGHT_BRACKET',
-        '|' =>  'T_PIPE',
-        '(' =>  'T_LEFT_PARENTHESIS',
-        ')' =>  'T_RIGHT_PARENTHESIS',
-        '{' =>  'T_LEFT_BRACE',
-        '}' =>  'T_RIGHT_BRACE',
-        '?' =>  'T_QUESTION',
-        '*' =>  'T_MULTIPLY',
-        '+' =>  'T_PLUS',
-        '-' =>  'T_MINUS',
-        ':' =>  'T_COLON',
-        ',' =>  'T_COMMA',
-        '!' =>  'T_EXCLAMATION',
-        '=' =>  'T_EQUALS',
-        '>' =>  'T_GREATER',
-        '<' =>  'T_LOWER',
-        '#' =>  'T_POUND',
-        '\''=>  'T_QUOTE',
-        '"' =>  'T_DOUBLE_QUOTE',
-        '/' =>  'T_SLASH',
-        '_' =>  'T_UNDERSCORE',
-        '@' =>  'T_AT',
-        ';' =>  'T_SEMI_COLON'
-    );
+    protected static $lexemeMap = null;
 
     public function __construct(StringStream $stream)
     {
         $this->stream = $stream;
+
+        if (self::$lexemeMap === null) {
+            self::$lexemeMap = array_flip(json_decode(file_get_contents(__DIR__.'/Resource/config/tokens.json'), true));
+        }
     }
 
     public static function create($input)
@@ -61,8 +38,8 @@ class Lexer
             return false;
         }
 
-        if (isset($this->lexemeMap[$char])) {
-            return new Token($this->lexemeMap[$char], $char);
+        if (isset(self::$lexemeMap[$char]) && substr(self::$lexemeMap[$char], 0, strlen('T_UNICODE')) !== 'T_UNICODE') {
+            return new Token(self::$lexemeMap[$char], $char);
         }
 
         if ($this->isInteger($char)) {
@@ -77,12 +54,43 @@ class Lexer
             if ($this->stream->readAt(1) === '\\') {
                 $this->stream->next();
                 return new Token('T_BACKSLASH', '\\');
+            } else if (($this->stream->readAt(1) === 'p' || $this->stream->readAt(1) === 'P')) {
+                return $this->readUnicode();
             } else {
                 return new Token('T_CHAR', $this->stream->next());
             }
         }
 
         throw new LexerException(sprintf('Unknown token %s at %s', $char, $this->stream->cursor()));
+    }
+
+    private function readUnicode()
+    {
+        $isExclusionSequence = $this->stream->next() === 'P';
+        $isWithBrace = $this->stream->next() === '{';
+
+        if (!$isWithBrace) {
+            $token = $this->stream->current();
+        } else {
+            $token = '';
+            do {
+                $char = $this->stream->next();
+
+                if ($char !== '}') {
+                    $token .= $char;
+                }
+            } while ($char && $char !== '}');
+
+            if ($char !== '}') {
+                throw new LexerException(sprintf('Unknown token %s at %s', $char, $this->stream->cursor()));
+            }
+        }
+
+        if (isset(self::$lexemeMap[$token])) {
+            return new UnicodeToken(self::$lexemeMap[$token], $token, $isExclusionSequence);
+        }
+
+        throw new LexerException(sprintf('Unknown unicode token %s at %s', $token, $this->stream->cursor()));
     }
 
     private function isWhitespace($char)

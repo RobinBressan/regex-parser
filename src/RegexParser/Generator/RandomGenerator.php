@@ -3,6 +3,7 @@
 namespace RegexParser\Generator;
 
 use RegexParser\AbstractGenerator;
+use RegexParser\Lexer\UnicodeToken;
 use RegexParser\Parser\Parser;
 use RegexParser\Parser\Node\AlternativeNode;
 use RegexParser\Parser\Node\BlockNode;
@@ -133,6 +134,11 @@ class RandomGenerator extends AbstractGenerator
     protected function printTokenNode(TokenNode $node)
     {
         $token = $node->getValue();
+
+        if ($token instanceof UnicodeToken) {
+            // Not supported yet
+            return '';
+        }
 
         if ($token->is('T_PERIOD') &&
              (!($node->getParent() instanceof BlockNode) || ($node->getParent() instanceof BlockNode && $node->getParent()->isSubPattern()))) {

@@ -3,6 +3,7 @@
 namespace RegexParser\Formatter;
 
 use RegexParser\AbstractFormatter;
+use RegexParser\Lexer\UnicodeToken;
 use RegexParser\Parser\NodeInterface;
 use RegexParser\Parser\Node\ASTNode;
 use RegexParser\Parser\Node\AlternativeNode;
@@ -72,9 +73,13 @@ class XMLFormatter extends AbstractFormatter
 
     protected function formatTokenNode(TokenNode $node)
     {
-        $xmlNode = $this->createXmlNode('token', $node->getValue()->getValue());
-        $xmlNode->setAttribute('type', str_replace('_', '-', strtolower(substr($node->getValue()->getName(), 2))));
+        $token = $node->getValue();
+        $xmlNode = $this->createXmlNode('token', $token->getValue());
+        $xmlNode->setAttribute('type', str_replace('_', '-', strtolower(substr($token->getName(), 2))));
 
+        if ($token instanceof UnicodeToken) {
+            $xmlNode->setAttribute('exclusion-sequence', $token->isExclusionSequence() ? 'true' : 'false');
+        }
         return $xmlNode;
     }
 
