@@ -49,4 +49,9 @@ abstract class AbstractNode implements NodeInterface
     {
         return $this->childNodes;
     }
+
+    public function appendChild(NodeInterface $childNode)
+    {
+        $this->childNodes[] = $childNode;
+    }
 }

@@ -1,0 +1,12 @@
+(.+?)
+----
+<?xml version="1.0" encoding="utf-8"?>
+<ast>
+  <block sub-pattern="true">
+    <repetition min="0" max="1">
+        <repetition min="1">
+            <token type="period">.</token>
+        </repetition>
+    </repetition>
+  </block>
+</ast>

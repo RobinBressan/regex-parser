@@ -27,6 +27,14 @@ class AlternativeParserPass extends AbstractParserPass
                     throw new ParserException('Alternative must have a previous and a next token');
                 }
 
+                if ($result[count($result) - 1] instanceof AlternativeNode) {
+                    if ($stream->readAt(1) instanceof TokenInterface) {
+                        $result[count($result) - 1]->appendChild(new TokenNode($stream->next()));
+                    } else {
+                        $result[count($result) - 1]->appendChild($stream->next());
+                    }
+                    continue;
+                }
                 // Remove previous
                 array_pop($result);
 
@@ -41,7 +49,7 @@ class AlternativeParserPass extends AbstractParserPass
                     $next = new TokenNode($next);
                 }
 
-                $result[] = new AlternativeNode($previous, $next);
+                $result[] = new AlternativeNode(array($previous, $next));
             } else {
                 $result[] = $token;
             }

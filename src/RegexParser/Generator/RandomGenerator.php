@@ -58,11 +58,8 @@ class RandomGenerator extends AbstractGenerator
 
     protected function printAlternativeNode(AlternativeNode $node)
     {
-        if (mt_rand(1,2)) {
-            return $this->printNode($node->getPrevious());
-        } else {
-            return $this->printNode($node->getNext());
-        }
+        $childNodes = $node->getChildNodes();
+        return $this->printNode($childNodes[mt_rand(0, count($childNodes) -1 )]);
     }
 
     protected function printBlockNode(BlockNode $node)

@@ -42,7 +42,7 @@ class XMLFormatter extends AbstractFormatter
         } else if ($node instanceof TokenNode) {
             $xmlNode = $this->formatTokenNode($node);
         } else if ($node instanceof AlternativeNode) {
-            $xmlNode = $this->formatAlternativeNode($node);
+            $xmlNode = $this->formatDefaultNode($node);
         } else if ($node instanceof BlockNode) {
             $xmlNode = $this->formatBlockNode($node);
         } else if ($node instanceof CharacterClassNode) {
@@ -50,11 +50,11 @@ class XMLFormatter extends AbstractFormatter
         } else if ($node instanceof RepetitionNode) {
             $xmlNode = $this->formatRepetitionNode($node);
         } else if ($node instanceof ExclusionNode) {
-            $xmlNode = $this->formatExclusionNode($node);
+            $xmlNode = $this->formatDefaultNode($node);
         } else if ($node instanceof BeginNode) {
-            $xmlNode = $this->formatBeginNode($node);
+            $xmlNode = $this->formatDefaultNode($node);
         } else if ($node instanceof EndNode) {
-            $xmlNode = $this->formatEndNode($node);
+            $xmlNode = $this->formatDefaultNode($node);
         }
 
         foreach ($node->getChildNodes() as $childNode) {
@@ -80,15 +80,6 @@ class XMLFormatter extends AbstractFormatter
         if ($token instanceof UnicodeToken) {
             $xmlNode->setAttribute('exclusion-sequence', $token->isExclusionSequence() ? 'true' : 'false');
         }
-        return $xmlNode;
-    }
-
-    protected function formatAlternativeNode(AlternativeNode $node)
-    {
-        $xmlNode = $this->createXmlNode($node->getName());
-        $xmlNode->appendChild($this->formatNode($node->getPrevious()));
-        $xmlNode->appendChild($this->formatNode($node->getNext()));
-
         return $xmlNode;
     }
 
@@ -121,24 +112,8 @@ class XMLFormatter extends AbstractFormatter
         return $xmlNode;
     }
 
-    protected function formatExclusionNode(ExclusionNode $node)
+    protected function formatDefaultNode(NodeInterface $node)
     {
-        $xmlNode = $this->createXmlNode($node->getName());
-
-        return $xmlNode;
-    }
-
-    protected function formatBeginNode(BeginNode $node)
-    {
-        $xmlNode = $this->createXmlNode($node->getName());
-
-        return $xmlNode;
-    }
-
-    protected function formatEndNode(EndNode $node)
-    {
-        $xmlNode = $this->createXmlNode($node->getName());
-
-        return $xmlNode;
+        return $this->createXmlNode($node->getName());
     }
 }

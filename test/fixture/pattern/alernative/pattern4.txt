@@ -1,0 +1,44 @@
+[a|z|([a-zA-Z]+)([a-zA-Z]+)|aio]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<ast>
+  <block sub-pattern="false">
+    <alternative>
+        <token type="char">a</token>
+        <token type="char">z</token>
+        <block sub-pattern="true">
+            <repetition min="1">
+                <block sub-pattern="false">
+                    <character-class>
+                        <token type="char">a</token>
+                        <token type="char">z</token>
+                    </character-class>
+                    <character-class>
+                        <token type="char">A</token>
+                        <token type="char">Z</token>
+                    </character-class>
+                </block>
+            </repetition>
+        </block>
+    </alternative>
+    <alternative>
+        <block sub-pattern="true">
+            <repetition min="1">
+                <block sub-pattern="false">
+                    <character-class>
+                        <token type="char">a</token>
+                        <token type="char">z</token>
+                    </character-class>
+                    <character-class>
+                        <token type="char">A</token>
+                        <token type="char">Z</token>
+                    </character-class>
+                </block>
+            </repetition>
+        </block>
+        <token type="char">a</token>
+    </alternative>
+    <token type="char">i</token>
+    <token type="char">o</token>
+  </block>
+</ast>

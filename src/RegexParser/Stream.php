@@ -49,6 +49,11 @@ class Stream implements StreamInterface
         return $this->input;
     }
 
+    public function replace($index, $value)
+    {
+        $this->input[$index] = $value;
+    }
+
     public function __clone()
     {
         return new Stream($this->input);

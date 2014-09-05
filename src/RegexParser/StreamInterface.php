@@ -16,5 +16,7 @@ interface StreamInterface
 
     public function cursor();
 
+    public function replace($index, $value);
+
     public function __clone();
 }

@@ -1,0 +1,25 @@
+[a|z|([a-zA-Z]+)]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<ast>
+  <block sub-pattern="false">
+    <alternative>
+        <token type="char">a</token>
+        <token type="char">z</token>
+        <block sub-pattern="true">
+            <repetition min="1">
+                <block sub-pattern="false">
+                    <character-class>
+                        <token type="char">a</token>
+                        <token type="char">z</token>
+                    </character-class>
+                    <character-class>
+                        <token type="char">A</token>
+                        <token type="char">Z</token>
+                    </character-class>
+                </block>
+            </repetition>
+        </block>
+    </alternative>
+  </block>
+</ast>
