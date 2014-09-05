@@ -62,6 +62,7 @@ class ParenthesisBlockParserPass extends AbstractParserPass
             throw new ParserException('Parenthesis block not closed');
         }
 
+        unset($stream);
         return new Stream($result);
     }
 }

@@ -3,7 +3,7 @@
 namespace RegexParser\Generator;
 
 use RegexParser\AbstractGenerator;
-use RegexParser\Lexer\UnicodeToken;
+use RegexParser\Lexer\EscapeToken;
 use RegexParser\Parser\Parser;
 use RegexParser\Parser\Node\AlternativeNode;
 use RegexParser\Parser\Node\BlockNode;
@@ -132,7 +132,7 @@ class RandomGenerator extends AbstractGenerator
     {
         $token = $node->getValue();
 
-        if ($token instanceof UnicodeToken) {
+        if ($token instanceof EscapeToken) {
             // Not supported yet
             return '';
         }

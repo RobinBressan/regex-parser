@@ -47,6 +47,7 @@ class CommentParserPass extends AbstractParserPass
             throw new ParserException("Comment not closed");
         }
 
+        unset($stream);
         return new Stream($result);
     }
 }

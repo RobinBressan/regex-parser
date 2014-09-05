@@ -38,7 +38,9 @@ class Lexer
             return false;
         }
 
-        if (isset(self::$lexemeMap[$char]) && substr(self::$lexemeMap[$char], 0, strlen('T_UNICODE')) !== 'T_UNICODE') {
+        if (isset(self::$lexemeMap[$char]) &&
+            mb_substr(self::$lexemeMap[$char], 0, strlen('T_UNICODE')) !== 'T_UNICODE' &&
+            mb_substr(self::$lexemeMap[$char], 0, strlen('T_ANY')) !== 'T_ANY') {
             return new Token(self::$lexemeMap[$char], $char);
         }
 
@@ -58,7 +60,11 @@ class Lexer
             } else if ($readAt1 === 'p' || $readAt1 === 'P') {
                 return $this->readUnicode();
             } else if ($readAt1 === 'X') {
-                return new UnicodeToken('T_UNICODE_X', 'X');
+                return new EscapeToken('T_UNICODE_X', 'X');
+            } else if(isset(self::$lexemeMap[$readAt1]) && mb_substr(self::$lexemeMap[$readAt1], 0, strlen('T_ANY')) === 'T_ANY') {
+                return new EscapeToken(self::$lexemeMap[$readAt1], $readAt1);
+            } else if(isset(self::$lexemeMap[mb_strtolower($readAt1)]) && mb_substr(self::$lexemeMap[mb_strtolower($readAt1)], 0, strlen('T_ANY')) === 'T_ANY') {
+                return new EscapeToken(self::$lexemeMap[mb_strtolower($readAt1)], $readAt1, true);
             } else {
                 return new Token('T_CHAR', $this->stream->next());
             }
@@ -95,7 +101,7 @@ class Lexer
         }
 
         if (isset(self::$lexemeMap[$token])) {
-            return new UnicodeToken(self::$lexemeMap[$token], $token, $isExclusionSequence);
+            return new EscapeToken(self::$lexemeMap[$token], $token, $isExclusionSequence);
         }
 
         throw new LexerException(sprintf('Unknown unicode token %s at %s', $token, $this->stream->cursor()));

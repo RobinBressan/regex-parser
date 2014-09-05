@@ -63,6 +63,7 @@ class BracketBlockParserPass extends AbstractParserPass
             throw new ParserException('Bracket block not closed');
         }
 
+        unset($stream);
         return new Stream($result);
     }
 }

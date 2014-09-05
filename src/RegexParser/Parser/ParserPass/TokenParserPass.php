@@ -22,6 +22,7 @@ class TokenParserPass extends AbstractParserPass
             $result[] = $token;
         }
 
+        unset($stream);
         return new Stream($result);
     }
 }

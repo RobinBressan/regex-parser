@@ -32,6 +32,7 @@ class DollarParserPass extends AbstractParserPass
             array_pop($result);
         }
 
+        unset($stream);
         return new Stream($result);
     }
 }

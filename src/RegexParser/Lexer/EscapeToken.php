@@ -2,7 +2,7 @@
 
 namespace RegexParser\Lexer;
 
-class UnicodeToken extends Token
+class EscapeToken extends Token
 {
     protected $isExclusionSequence;
 

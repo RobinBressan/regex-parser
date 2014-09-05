@@ -55,6 +55,7 @@ class AlternativeParserPass extends AbstractParserPass
             }
         }
 
+        unset($stream);
         return new Stream($result);
     }
 }

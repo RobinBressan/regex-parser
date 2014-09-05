@@ -3,7 +3,7 @@
 namespace RegexParser\Formatter;
 
 use RegexParser\AbstractFormatter;
-use RegexParser\Lexer\UnicodeToken;
+use RegexParser\Lexer\EscapeToken;
 use RegexParser\Parser\NodeInterface;
 use RegexParser\Parser\Node\ASTNode;
 use RegexParser\Parser\Node\AlternativeNode;
@@ -77,7 +77,7 @@ class XMLFormatter extends AbstractFormatter
         $xmlNode = $this->createXmlNode('token', $token->getValue());
         $xmlNode->setAttribute('type', str_replace('_', '-', strtolower(substr($token->getName(), 2))));
 
-        if ($token instanceof UnicodeToken) {
+        if ($token instanceof EscapeToken) {
             $xmlNode->setAttribute('exclusion-sequence', $token->isExclusionSequence() ? 'true' : 'false');
         }
         return $xmlNode;
