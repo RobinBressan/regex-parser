@@ -57,23 +57,31 @@ class Lexer
             if ($readAt1 === '\\') {
                 $this->stream->next();
                 return new Token('T_BACKSLASH', '\\');
-            } else if ($readAt1 === 'p' || $readAt1 === 'P') {
-                return $this->readUnicode();
-            } else if ($readAt1 === 'X') {
-                return new EscapeToken('T_UNICODE_X', 'X');
-            } else if(isset(self::$lexemeMap[$readAt1]) && mb_substr(self::$lexemeMap[$readAt1], 0, strlen('T_ANY')) === 'T_ANY') {
-                return new EscapeToken(self::$lexemeMap[$readAt1], $readAt1);
-            } else if(isset(self::$lexemeMap[mb_strtolower($readAt1)]) && mb_substr(self::$lexemeMap[mb_strtolower($readAt1)], 0, strlen('T_ANY')) === 'T_ANY') {
-                return new EscapeToken(self::$lexemeMap[mb_strtolower($readAt1)], $readAt1, true);
-            } else {
-                return new Token('T_CHAR', $this->stream->next());
             }
+
+            if ($readAt1 === 'p' || $readAt1 === 'P') {
+                return $this->readUnicode();
+            }
+
+            if ($readAt1 === 'X') {
+                return new EscapeToken('T_UNICODE_X', 'X');
+            }
+
+            if(isset(self::$lexemeMap[$readAt1]) && mb_substr(self::$lexemeMap[$readAt1], 0, strlen('T_ANY')) === 'T_ANY') {
+                return new EscapeToken(self::$lexemeMap[$readAt1], $readAt1);
+            }
+
+            if(isset(self::$lexemeMap[mb_strtolower($readAt1)]) && mb_substr(self::$lexemeMap[mb_strtolower($readAt1)], 0, strlen('T_ANY')) === 'T_ANY') {
+                return new EscapeToken(self::$lexemeMap[mb_strtolower($readAt1)], $readAt1, true);
+            }
+
+            return new Token('T_CHAR', $this->stream->next());
         }
 
         throw new LexerException(sprintf('Unknown token %s at %s', $char, $this->stream->cursor()));
     }
 
-    private function readUnicode()
+    protected function readUnicode()
     {
         $isExclusionSequence = $this->stream->next() === 'P';
         $isWithBrace = $this->stream->next() === '{';
@@ -107,25 +115,25 @@ class Lexer
         throw new LexerException(sprintf('Unknown unicode token %s at %s', $token, $this->stream->cursor()));
     }
 
-    private function isWhitespace($char)
+    protected function isWhitespace($char)
     {
         // IE treats non-breaking space as \u00A0
         return ($char === " " || $char === "\r" || $char === "\t" ||
                 $char === "\n" || $char === "\v" || $char === "\u00A0");
     }
 
-    private function isInteger($char)
+    protected function isInteger($char)
     {
         return $char >= '0' && $char <= '9';
     }
 
-    private function isAlpha($char)
+    protected function isAlpha($char)
     {
         return ($char >= 'a' && $char <= 'z') ||
                ($char >= 'A' && $char <= 'Z');
     }
 
-    private function isNewLine($char)
+    protected function isNewLine($char)
     {
         return $char === "\r" || $char === "\n";
     }
