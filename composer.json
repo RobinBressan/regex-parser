@@ -1,5 +1,6 @@
 {
     "name": "robinbressan/regex-parser",
+    "description": "AST for PCRE Regex",
     "license": "MIT",
     "authors": [
         {
@@ -7,18 +8,18 @@
             "email": "robin@buddey.net"
         }
     ],
-    "require": {
-    },
-    "autoload": {
-        "psr-0": {
-            "RegexParser\\": [
-                "src/",
-                "test/"
-            ]
-        }
-    },
     "require-dev": {
         "phpunit/phpunit": "3.7.32",
         "phpspec/prophecy": "~1.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "RegexParser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "RegexParser\\": "test/"
+        }
     }
 }
