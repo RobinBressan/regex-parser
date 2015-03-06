@@ -45,25 +45,27 @@ class CharacterClassParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 
     /**
      * Valid that the two tokens of a character class are valid
-     * @param  TokeInterface   $previous
-     * @param  TokenInterface  $next
+     * @param  TokeInterface  $previous
+     * @param  TokenInterface $next
      * @return boolean
      */
     private function isPreviousNextTokenValid($previous, $next, $parentPass)
     {
         if ($parentPass !== 'BracketBlockParserPass') {
             return false;
-        } else if ($previous->is('T_INTEGER') && $next->is('T_INTEGER')) {
+        } elseif ($previous->is('T_INTEGER') && $next->is('T_INTEGER')) {
             return $previous->getValue() < $next->getValue();
-        } else if ($previous->is('T_CHAR') && $next->is('T_CHAR')) {
+        } elseif ($previous->is('T_CHAR') && $next->is('T_CHAR')) {
             if ($next->getValue() <= 'Z') { // Need to be first because Z < z
+
                 return $previous->getValue() >= 'A';
-            } else if ($next->getValue() <= 'z') {
+            } elseif ($next->getValue() <= 'z') {
                 return $previous->getValue() >= 'a';
             }
 

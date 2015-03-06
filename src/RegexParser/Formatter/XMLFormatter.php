@@ -2,18 +2,19 @@
 
 namespace RegexParser\Formatter;
 
+use DomDocument;
 use RegexParser\AbstractFormatter;
 use RegexParser\Lexer\EscapeToken;
-use RegexParser\Parser\NodeInterface;
-use RegexParser\Parser\Node\ASTNode;
 use RegexParser\Parser\Node\AlternativeNode;
+use RegexParser\Parser\Node\ASTNode;
+use RegexParser\Parser\Node\BeginNode;
 use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Parser\Node\CharacterClassNode;
-use RegexParser\Parser\Node\RepetitionNode;
-use RegexParser\Parser\Node\ExclusionNode;
-use RegexParser\Parser\Node\BeginNode;
 use RegexParser\Parser\Node\EndNode;
+use RegexParser\Parser\Node\ExclusionNode;
+use RegexParser\Parser\Node\RepetitionNode;
 use RegexParser\Parser\Node\TokenNode;
+use RegexParser\Parser\NodeInterface;
 
 class XMLFormatter extends AbstractFormatter
 {
@@ -21,8 +22,9 @@ class XMLFormatter extends AbstractFormatter
 
     public function format(NodeInterface $ast)
     {
-        $this->document = new \DomDocument('1.0', 'utf-8');
+        $this->document = new DomDocument('1.0', 'utf-8');
         $this->document->appendChild($this->formatNode($ast));
+
         return $this->document;
     }
 
@@ -39,21 +41,21 @@ class XMLFormatter extends AbstractFormatter
     {
         if ($node instanceof ASTNode) {
             $xmlNode = $this->formatASTNode($node);
-        } else if ($node instanceof TokenNode) {
+        } elseif ($node instanceof TokenNode) {
             $xmlNode = $this->formatTokenNode($node);
-        } else if ($node instanceof AlternativeNode) {
+        } elseif ($node instanceof AlternativeNode) {
             $xmlNode = $this->formatDefaultNode($node);
-        } else if ($node instanceof BlockNode) {
+        } elseif ($node instanceof BlockNode) {
             $xmlNode = $this->formatBlockNode($node);
-        } else if ($node instanceof CharacterClassNode) {
+        } elseif ($node instanceof CharacterClassNode) {
             $xmlNode = $this->formatCharacterClassNode($node);
-        } else if ($node instanceof RepetitionNode) {
+        } elseif ($node instanceof RepetitionNode) {
             $xmlNode = $this->formatRepetitionNode($node);
-        } else if ($node instanceof ExclusionNode) {
+        } elseif ($node instanceof ExclusionNode) {
             $xmlNode = $this->formatDefaultNode($node);
-        } else if ($node instanceof BeginNode) {
+        } elseif ($node instanceof BeginNode) {
             $xmlNode = $this->formatDefaultNode($node);
-        } else if ($node instanceof EndNode) {
+        } elseif ($node instanceof EndNode) {
             $xmlNode = $this->formatDefaultNode($node);
         }
 
@@ -80,6 +82,7 @@ class XMLFormatter extends AbstractFormatter
         if ($token instanceof EscapeToken) {
             $xmlNode->setAttribute('exclusion-sequence', $token->isExclusionSequence() ? 'true' : 'false');
         }
+
         return $xmlNode;
     }
 

@@ -43,7 +43,6 @@ class AlternativeParserPass extends AbstractParserPass
                     $previous = new TokenNode($previous);
                 }
 
-
                 $next = $stream->next();
                 if ($next instanceof TokenInterface) {
                     $next = new TokenNode($next);
@@ -56,6 +55,7 @@ class AlternativeParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

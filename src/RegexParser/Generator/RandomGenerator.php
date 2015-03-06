@@ -41,17 +41,17 @@ class RandomGenerator extends AbstractGenerator
     {
         if ($node instanceof AlternativeNode) {
             return $this->printAlternativeNode($node);
-        } else if ($node instanceof BlockNode) {
+        } elseif ($node instanceof BlockNode) {
             return $this->printBlockNode($node);
-        } else if ($node instanceof CharacterClassNode) {
+        } elseif ($node instanceof CharacterClassNode) {
             return $this->printCharacterClassNode($node);
-        } else if ($node instanceof RepetitionNode) {
+        } elseif ($node instanceof RepetitionNode) {
             return $this->printRepetitionNode($node);
-        } else if ($node instanceof TokenNode) {
+        } elseif ($node instanceof TokenNode) {
             return $this->printTokenNode($node);
-        } else if ($node instanceof BeginNode) {
+        } elseif ($node instanceof BeginNode) {
             return $this->printBeginNode($node);
-        } else if ($node instanceof EndNode) {
+        } elseif ($node instanceof EndNode) {
             return $this->printEndNode($node);
         }
     }
@@ -59,6 +59,7 @@ class RandomGenerator extends AbstractGenerator
     protected function printAlternativeNode(AlternativeNode $node)
     {
         $childNodes = $node->getChildNodes();
+
         return $this->printNode($childNodes[mt_rand(0, count($childNodes) -1 )]);
     }
 
@@ -106,6 +107,7 @@ class RandomGenerator extends AbstractGenerator
     protected function printCharacterClassNode(CharacterClassNode $node)
     {
         $range = range($node->getStart()->getValue()->getValue(), $node->getEnd()->getValue()->getValue());
+
         return $range[mt_rand(0, count($range) - 1)];
     }
 
@@ -140,8 +142,10 @@ class RandomGenerator extends AbstractGenerator
         if ($token->is('T_PERIOD') &&
              (!($node->getParent() instanceof BlockNode) || ($node->getParent() instanceof BlockNode && $node->getParent()->isSubPattern()))) {
             $range = range('a', 'Z');
+
             return $range[mt_rand(0, count($range) - 1)];
         }
+
         return $token->getValue();
     }
 }

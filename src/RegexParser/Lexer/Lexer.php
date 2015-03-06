@@ -3,7 +3,6 @@
 namespace RegexParser\Lexer;
 
 use RegexParser\Lexer\Exception\LexerException;
-use Symfony\Component\Yaml\Parser;
 
 class Lexer
 {
@@ -45,7 +44,7 @@ class Lexer
         }
 
         if ($this->isInteger($char)) {
-            return new Token('T_INTEGER', (int)$char);
+            return new Token('T_INTEGER', (int) $char);
         }
 
         if ($this->isAlpha($char) || $this->isWhitespace($char)) {
@@ -56,6 +55,7 @@ class Lexer
             $readAt1 = $this->stream->readAt(1);
             if ($readAt1 === '\\') {
                 $this->stream->next();
+
                 return new Token('T_BACKSLASH', '\\');
             }
 
@@ -67,11 +67,11 @@ class Lexer
                 return new EscapeToken('T_UNICODE_X', 'X');
             }
 
-            if(isset(self::$lexemeMap[$readAt1]) && mb_substr(self::$lexemeMap[$readAt1], 0, strlen('T_ANY')) === 'T_ANY') {
+            if (isset(self::$lexemeMap[$readAt1]) && mb_substr(self::$lexemeMap[$readAt1], 0, strlen('T_ANY')) === 'T_ANY') {
                 return new EscapeToken(self::$lexemeMap[$readAt1], $readAt1);
             }
 
-            if(isset(self::$lexemeMap[mb_strtolower($readAt1)]) && mb_substr(self::$lexemeMap[mb_strtolower($readAt1)], 0, strlen('T_ANY')) === 'T_ANY') {
+            if (isset(self::$lexemeMap[mb_strtolower($readAt1)]) && mb_substr(self::$lexemeMap[mb_strtolower($readAt1)], 0, strlen('T_ANY')) === 'T_ANY') {
                 return new EscapeToken(self::$lexemeMap[mb_strtolower($readAt1)], $readAt1, true);
             }
 

@@ -21,6 +21,7 @@ class Stream implements StreamInterface
         }
 
         $this->cursor++;
+
         return $this->current();
     }
 

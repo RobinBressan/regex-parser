@@ -6,7 +6,8 @@ use RegexParser\Parser\AbstractNode;
 
 class RepetitionNode extends AbstractNode
 {
-    public function __construct($min, $max, $childNodes) {
+    public function __construct($min, $max, $childNodes)
+    {
         parent::__construct('repetition', array(
             'min' => $min,
             'max' => $max

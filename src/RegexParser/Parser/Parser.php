@@ -5,17 +5,17 @@ namespace RegexParser\Parser;
 use RegexParser\Lexer\Lexer;
 use RegexParser\Lexer\TokenStream;
 use RegexParser\Parser\Node\ASTNode;
-use RegexParser\Parser\ParserPass\CommentParserPass;
-use RegexParser\Parser\ParserPass\BracketBlockParserPass;
-use RegexParser\Parser\ParserPass\ParenthesisBlockParserPass;
-use RegexParser\Parser\ParserPass\CharacterClassParserPass;
 use RegexParser\Parser\ParserPass\AlternativeParserPass;
+use RegexParser\Parser\ParserPass\BracketBlockParserPass;
+use RegexParser\Parser\ParserPass\CharacterClassParserPass;
+use RegexParser\Parser\ParserPass\CommentParserPass;
+use RegexParser\Parser\ParserPass\DollarParserPass;
+use RegexParser\Parser\ParserPass\HatParserPass;
+use RegexParser\Parser\ParserPass\ParenthesisBlockParserPass;
 use RegexParser\Parser\ParserPass\RepetitionParserPass;
 use RegexParser\Parser\ParserPass\TokenParserPass;
-use RegexParser\Parser\ParserPass\HatParserPass;
-use RegexParser\Parser\ParserPass\DollarParserPass;
-use RegexParser\StreamInterface;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
 class Parser
 {
@@ -50,6 +50,7 @@ class Parser
                 $stream = $parserPass->parseStream($stream, $parentPass);
             }
         }
+
         return $stream;
     }
 

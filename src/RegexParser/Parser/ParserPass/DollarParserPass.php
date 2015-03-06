@@ -3,7 +3,6 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
-use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\AbstractParserPass;
 use RegexParser\Parser\Node\EndNode;
 use RegexParser\StreamInterface;
@@ -15,7 +14,7 @@ class DollarParserPass extends AbstractParserPass
     {
         $result = array();
 
-        while($token = $stream->next()) {
+        while ($token = $stream->next()) {
             $result[] = $token;
         }
 
@@ -33,6 +32,7 @@ class DollarParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

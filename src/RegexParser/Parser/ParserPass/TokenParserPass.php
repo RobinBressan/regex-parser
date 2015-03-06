@@ -5,8 +5,8 @@ namespace RegexParser\Parser\ParserPass;
 use RegexParser\Lexer\TokenInterface;
 use RegexParser\Parser\AbstractParserPass;
 use RegexParser\Parser\Node\TokenNode;
-use RegexParser\StreamInterface;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
 class TokenParserPass extends AbstractParserPass
 {
@@ -23,6 +23,7 @@ class TokenParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

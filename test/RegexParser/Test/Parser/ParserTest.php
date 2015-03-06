@@ -2,10 +2,14 @@
 
 namespace RegexParser\Test\Parser;
 
-use RegexParser\Parser\Parser;
+use DOMDocument;
+use PHPUnit_Framework_TestCase;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use RegexParser\Formatter\XMLFormatter;
+use RegexParser\Parser\Parser;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends PHPUnit_Framework_TestCase
 {
     protected $parser;
 
@@ -22,7 +26,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testPattern($input, $expectedOutput, $filename)
     {
-        $expectedOutputDOM = new \DOMDocument('1.0', 'utf-8');
+        $expectedOutputDOM = new DOMDocument('1.0', 'utf-8');
         $expectedOutputDOM->preserveWhiteSpace = false;
         $expectedOutputDOM->formatOutput = false;
         $expectedOutputDOM->loadXML($expectedOutput);
@@ -41,8 +45,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         $data = array();
 
-        $dirIterator = new \RecursiveDirectoryIterator(__DIR__ . '/../../../fixture/pattern');
-        $iterator = new \RecursiveIteratorIterator($dirIterator, \RecursiveIteratorIterator::CHILD_FIRST);
+        $dirIterator = new RecursiveDirectoryIterator(__DIR__ . '/../../../fixture/pattern');
+        $iterator = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::CHILD_FIRST);
 
         foreach ($iterator as $file) {
             if (!$file->isFile() || $file->getExtension() !== 'txt') {

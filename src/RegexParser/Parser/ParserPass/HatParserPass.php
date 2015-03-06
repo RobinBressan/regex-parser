@@ -3,7 +3,6 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
-use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\AbstractParserPass;
 use RegexParser\Parser\Node\ExclusionNode;
 use RegexParser\Parser\Node\BeginNode;
@@ -16,7 +15,7 @@ class HatParserPass extends AbstractParserPass
     {
         $result = array();
 
-        while($token = $stream->next()) {
+        while ($token = $stream->next()) {
             if (!($token instanceof TokenInterface)) {
                 $result[] = $token;
                 continue;
@@ -27,6 +26,7 @@ class HatParserPass extends AbstractParserPass
                 if ($parentPass === 'BracketBlockParserPass') {
                     $childNodes = $stream->input();
                     array_shift($childNodes); // Remove ^
+
                     return new Stream(array(new ExclusionNode(
                         $this
                             ->parser
@@ -49,6 +49,7 @@ class HatParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

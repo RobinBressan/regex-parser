@@ -16,7 +16,7 @@ class CommentParserPass extends AbstractParserPass
         $stack = array();
         $result = array();
 
-        while($token = $stream->next()) {
+        while ($token = $stream->next()) {
             if ($stream->cursor() < 2 || !($token instanceof TokenInterface)) {
                 $result[] = $token;
                 continue;
@@ -32,11 +32,11 @@ class CommentParserPass extends AbstractParserPass
                 // We remove (? from result
                 array_pop($result);
                 array_pop($result);
-            } else if ($commentFound && $token->is('T_RIGHT_PARENTHESIS')) {
+            } elseif ($commentFound && $token->is('T_RIGHT_PARENTHESIS')) {
                 // $stack contains our comment but we don't keep it
                 $commentFound = false;
                 $stack = array();
-            } else if ($commentFound) {
+            } elseif ($commentFound) {
                 $stack[] = $token;
             } else {
                 $result[] = $token;
@@ -48,6 +48,7 @@ class CommentParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

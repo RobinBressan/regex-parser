@@ -2,9 +2,10 @@
 
 namespace RegexParser\Test;
 
+use PHPUnit_Framework_TestCase;
 use RegexParser\Lexer\StringStream;
 
-class StringStreamTest extends \PHPUnit_Framework_TestCase
+class StringStreamTest extends PHPUnit_Framework_TestCase
 {
     private $input;
 

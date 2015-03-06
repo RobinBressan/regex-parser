@@ -6,7 +6,8 @@ use RegexParser\Parser\AbstractNode;
 
 class CharacterClassNode extends AbstractNode
 {
-    public function __construct($start, $end) {
+    public function __construct($start, $end)
+    {
         parent::__construct('character-class', array(
             'start' => $start,
             'end'   => $end

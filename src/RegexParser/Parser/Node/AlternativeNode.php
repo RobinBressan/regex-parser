@@ -8,7 +8,8 @@ class AlternativeNode extends AbstractNode
 {
     protected $isSubPattern;
 
-    public function __construct(array $childNodes) {
+    public function __construct(array $childNodes)
+    {
         parent::__construct('alternative', null, $childNodes);
     }
 }

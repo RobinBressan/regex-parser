@@ -2,8 +2,6 @@
 
 namespace RegexParser\Parser;
 
-use RegexParser\DomableInterface;
-
 interface NodeInterface
 {
     public function getName();

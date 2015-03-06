@@ -2,9 +2,10 @@
 
 namespace RegexParser\Test;
 
+use PHPUnit_Framework_TestCase;
 use Prophecy\Prophet;
 
-class ProphecyTestCase extends \PHPUnit_Framework_TestCase
+class ProphecyTestCase extends PHPUnit_Framework_TestCase
 {
     protected $prophet;
 

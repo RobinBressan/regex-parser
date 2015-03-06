@@ -2,8 +2,6 @@
 
 namespace RegexParser\Parser;
 
-use RegexParser\Lexer\TokenInterface;
-
 abstract class AbstractNode implements NodeInterface
 {
     protected $childNodes = array();

@@ -2,7 +2,9 @@
 
 namespace RegexParser\Parser\Exception;
 
-class ParserException extends \Exception
+use Exception;
+
+class ParserException extends Exception
 {
 
 }
