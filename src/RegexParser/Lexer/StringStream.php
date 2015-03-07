@@ -4,8 +4,16 @@ namespace RegexParser\Lexer;
 
 use RegexParser\Stream;
 
+/**
+ * ...
+ */
 class StringStream extends Stream
 {
+    /**
+     * [__construct description]
+     *
+     * @param string $input [description]
+     */
     public function __construct($input)
     {
         $strlen = mb_strlen($input);

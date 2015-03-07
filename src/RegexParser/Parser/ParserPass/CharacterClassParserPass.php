@@ -3,14 +3,25 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
+use RegexParser\Parser\AbstractParserPass;
 use RegexParser\Parser\Node\CharacterClassNode;
 use RegexParser\Parser\Node\TokenNode;
-use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
+/**
+ * ...
+ */
 class CharacterClassParserPass extends AbstractParserPass
 {
+    /**
+     * [parseStream description]
+     *
+     * @param StreamInterface $stream     [description]
+     * @param string|null     $parentPass [description]
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $result = array();
@@ -50,9 +61,12 @@ class CharacterClassParserPass extends AbstractParserPass
     }
 
     /**
-     * Valid that the two tokens of a character class are valid
-     * @param  TokeInterface  $previous
-     * @param  TokenInterface $next
+     * Valid that the two tokens of a character class are valid.
+     *
+     * @param TokenInterface $previous   [description]
+     * @param TokenInterface $next       [description]
+     * @param string|null    $parentPass [description]
+     *
      * @return boolean
      */
     private function isPreviousNextTokenValid($previous, $next, $parentPass)

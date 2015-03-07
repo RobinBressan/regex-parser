@@ -8,8 +8,19 @@ use RegexParser\Parser\Node\TokenNode;
 use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
+/**
+ * ...
+ */
 class TokenParserPass extends AbstractParserPass
 {
+    /**
+     * [parseStream description]
+     *
+     * @param StreamInterface $stream     [description]
+     * @param string|null     $parentPass [description]
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $result = array();

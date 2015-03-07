@@ -17,10 +17,23 @@ use RegexParser\Parser\ParserPass\TokenParserPass;
 use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
+/**
+ * ...
+ */
 class Parser
 {
+    /**
+     * [$parserPasses description]
+     *
+     * @var array
+     */
     protected $parserPasses = array();
 
+    /**
+     * [create description]
+     *
+     * @return Parser
+     */
     public static function create()
     {
         $parser = new self();
@@ -37,12 +50,28 @@ class Parser
         return $parser;
     }
 
+    /**
+     * [registerParserPass description]
+     *
+     * @param ParserPassInterface $parserPass [description]
+     *
+     * @return void
+     */
     public function registerParserPass(ParserPassInterface $parserPass)
     {
         $parserPass->setParser($this);
         $this->parserPasses[] = $parserPass;
     }
 
+    /**
+     * [parseStream description]
+     *
+     * @param StreamInterface $stream         [description]
+     * @param string|null     $parentPass     [description]
+     * @param array           $excludedPasses [description]
+     *
+     * @return StreamInterface
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null, $excludedPasses = array())
     {
         foreach ($this->parserPasses as $parserPass) {
@@ -54,6 +83,13 @@ class Parser
         return $stream;
     }
 
+    /**
+     * [parse description]
+     *
+     * @param string $input [description]
+     *
+     * @return ASTNode
+     */
     public function parse($input)
     {
         $lexer = Lexer::create($input);

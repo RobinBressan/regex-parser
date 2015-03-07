@@ -5,11 +5,22 @@ namespace RegexParser\Parser\ParserPass;
 use RegexParser\Lexer\TokenInterface;
 use RegexParser\Parser\AbstractParserPass;
 use RegexParser\Parser\Node\EndNode;
-use RegexParser\StreamInterface;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
+/**
+ * ...
+ */
 class DollarParserPass extends AbstractParserPass
 {
+    /**
+     * [parseStream description]
+     *
+     * @param StreamInterface $stream     [description]
+     * @param string|null     $parentPass [description]
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $result = array();

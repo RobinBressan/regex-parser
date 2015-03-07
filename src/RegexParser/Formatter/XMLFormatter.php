@@ -16,10 +16,25 @@ use RegexParser\Parser\Node\RepetitionNode;
 use RegexParser\Parser\Node\TokenNode;
 use RegexParser\Parser\NodeInterface;
 
+/**
+ * ...
+ */
 class XMLFormatter extends AbstractFormatter
 {
+    /**
+     * [$document description]
+     *
+     * @var DomDocument
+     */
     protected $document;
 
+    /**
+     * [format description]
+     *
+     * @param NodeInterface $ast [description]
+     *
+     * @return DomDocument
+     */
     public function format(NodeInterface $ast)
     {
         $this->document = new DomDocument('1.0', 'utf-8');
@@ -28,6 +43,14 @@ class XMLFormatter extends AbstractFormatter
         return $this->document;
     }
 
+    /**
+     * [createXmlNode description]
+     *
+     * @param string $name  [description]
+     * @param string $value [description]
+     *
+     * @return \DOMElement
+     */
     protected function createXmlNode($name, $value = null)
     {
         if ($value !== null) {
@@ -37,6 +60,13 @@ class XMLFormatter extends AbstractFormatter
         return $this->document->createElement($name);
     }
 
+    /**
+     * [formatNode description]
+     *
+     * @param NodeInterface $node [description]
+     *
+     * @return \DOMElement
+     */
     protected function formatNode($node)
     {
         if ($node instanceof ASTNode) {
@@ -66,6 +96,13 @@ class XMLFormatter extends AbstractFormatter
         return $xmlNode;
     }
 
+    /**
+     * [formatASTNode description]
+     *
+     * @param ASTNode $node [description]
+     *
+     * @return \DOMElement
+     */
     protected function formatASTNode(ASTNode $node)
     {
         $xmlNode = $this->createXmlNode('ast');
@@ -73,6 +110,13 @@ class XMLFormatter extends AbstractFormatter
         return $xmlNode;
     }
 
+    /**
+     * [formatTokenNode description]
+     *
+     * @param TokenNode $node [description]
+     *
+     * @return \DOMElement
+     */
     protected function formatTokenNode(TokenNode $node)
     {
         $token = $node->getValue();
@@ -86,6 +130,13 @@ class XMLFormatter extends AbstractFormatter
         return $xmlNode;
     }
 
+    /**
+     * [formatBlockNode description]
+     *
+     * @param BlockNode $node [description]
+     *
+     * @return \DOMElement
+     */
     protected function formatBlockNode(BlockNode $node)
     {
         $xmlNode = $this->createXmlNode($node->getName());
@@ -94,6 +145,13 @@ class XMLFormatter extends AbstractFormatter
         return $xmlNode;
     }
 
+    /**
+     * [formatCharacterClassNode description]
+     *
+     * @param CharacterClassNode $node [description]
+     *
+     * @return \DOMElement
+     */
     protected function formatCharacterClassNode(CharacterClassNode $node)
     {
         $xmlNode = $this->createXmlNode($node->getName());
@@ -103,6 +161,13 @@ class XMLFormatter extends AbstractFormatter
         return $xmlNode;
     }
 
+    /**
+     * [formatRepetitionNode description]
+     *
+     * @param RepetitionNode $node [description]
+     *
+     * @return \DOMElement
+     */
     protected function formatRepetitionNode(RepetitionNode $node)
     {
         $xmlNode = $this->createXmlNode($node->getName());
@@ -115,6 +180,13 @@ class XMLFormatter extends AbstractFormatter
         return $xmlNode;
     }
 
+    /**
+     * [formatDefaultNode description]
+     *
+     * @param NodeInterface $node [description]
+     *
+     * @return \DOMElement
+     */
     protected function formatDefaultNode(NodeInterface $node)
     {
         return $this->createXmlNode($node->getName());

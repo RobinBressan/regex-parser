@@ -3,13 +3,26 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
-use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
+use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
+/**
+ * ...
+ */
 class CommentParserPass extends AbstractParserPass
 {
+    /**
+     * [parseStream description]
+     *
+     * @param StreamInterface $stream     [description]
+     * @param string|null     $parentPass [description]
+     *
+     * @throws ParserException If [this condition is met]
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $commentFound = false;

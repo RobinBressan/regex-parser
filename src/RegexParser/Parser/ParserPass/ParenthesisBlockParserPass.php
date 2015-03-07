@@ -3,14 +3,27 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
-use RegexParser\Parser\Node\BlockNode;
-use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
+use RegexParser\Parser\Exception\ParserException;
+use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
+/**
+ * ...
+ */
 class ParenthesisBlockParserPass extends AbstractParserPass
 {
+    /**
+     * [parseStream description]
+     *
+     * @param StreamInterface $stream     [description]
+     * @param string|null     $parentPass [description]
+     *
+     * @throws ParserException If [this condition is met]
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $blocksFound = 0;

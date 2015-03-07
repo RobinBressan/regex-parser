@@ -4,14 +4,37 @@ namespace RegexParser\Lexer;
 
 use RegexParser\Lexer\Exception\LexerException;
 
+/**
+ * ...
+ */
 class Lexer
 {
+    /**
+     * [$stream description]
+     *
+     * @var StringStream
+     */
     protected $stream;
 
+    /**
+     * [$currentChar description]
+     *
+     * @var string
+     */
     protected $currentChar;
 
+    /**
+     * [$lexemeMap description]
+     *
+     * @var null|array
+     */
     protected static $lexemeMap = null;
 
+    /**
+     * [__construct description]
+     *
+     * @param StringStream $stream [description]
+     */
     public function __construct(StringStream $stream)
     {
         $this->stream = $stream;
@@ -21,16 +44,35 @@ class Lexer
         }
     }
 
+    /**
+     * [create description]
+     *
+     * @param string $input [description]
+     *
+     * @return Lexer
+     */
     public static function create($input)
     {
         return new self(new StringStream($input));
     }
 
+    /**
+     * [getStream description]
+     *
+     * @return StringStream
+     */
     public function getStream()
     {
         return $this->stream;
     }
 
+    /**
+     * [nextToken description]
+     *
+     * @throws LexerException If [this condition is met]
+     *
+     * @return Token|EscapeToken|void
+     */
     public function nextToken()
     {
         if (($char = $this->stream->next()) === false) {
@@ -81,6 +123,13 @@ class Lexer
         throw new LexerException(sprintf('Unknown token %s at %s', $char, $this->stream->cursor()));
     }
 
+    /**
+     * [readUnicode description]
+     *
+     * @throws LexerException If [this condition is met]
+     *
+     * @return EscapeToken|void
+     */
     protected function readUnicode()
     {
         $isExclusionSequence = $this->stream->next() === 'P';
@@ -115,6 +164,13 @@ class Lexer
         throw new LexerException(sprintf('Unknown unicode token %s at %s', $token, $this->stream->cursor()));
     }
 
+    /**
+     * [isWhitespace description]
+     *
+     * @param string $char [description]
+     *
+     * @return boolean
+     */
     protected function isWhitespace($char)
     {
         // IE treats non-breaking space as \u00A0
@@ -122,17 +178,38 @@ class Lexer
                 $char === "\n" || $char === "\v" || $char === "\u00A0");
     }
 
+    /**
+     * [isInteger description]
+     *
+     * @param string $char [description]
+     *
+     * @return boolean
+     */
     protected function isInteger($char)
     {
         return $char >= '0' && $char <= '9';
     }
 
+    /**
+     * [isAlpha description]
+     *
+     * @param string $char [description]
+     *
+     * @return boolean
+     */
     protected function isAlpha($char)
     {
         return ($char >= 'a' && $char <= 'z') ||
                ($char >= 'A' && $char <= 'Z');
     }
 
+    /**
+     * [isNewLine description]
+     *
+     * @param string $char [description]
+     *
+     * @return boolean
+     */
     protected function isNewLine($char)
     {
         return $char === "\r" || $char === "\n";

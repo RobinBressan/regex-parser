@@ -3,15 +3,28 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
+use RegexParser\Parser\AbstractParserPass;
+use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\Node\RepetitionNode;
 use RegexParser\Parser\Node\TokenNode;
-use RegexParser\Parser\Exception\ParserException;
-use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
+/**
+ * ...
+ */
 class RepetitionParserPass extends AbstractParserPass
 {
+    /**
+     * [parseStream description]
+     *
+     * @param StreamInterface $stream     [description]
+     * @param string|null     $parentPass [description]
+     *
+     * @throws ParserException If [this condition is met]
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $blockFound = false;
