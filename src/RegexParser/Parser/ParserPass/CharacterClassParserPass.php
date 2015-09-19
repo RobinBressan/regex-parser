@@ -62,7 +62,7 @@ class CharacterClassParserPass extends AbstractParserPass
      * @param TokenInterface $next
      * @param string|null    $parentPass
      *
-     * @return boolean
+     * @return bool
      */
     private function isPreviousNextTokenValid($previous, $next, $parentPass)
     {

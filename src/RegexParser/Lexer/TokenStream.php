@@ -37,17 +37,17 @@ class TokenStream extends Stream
     }
 
     /**
-     * @param integer $index
+     * @param int $index
      *
      * @return mixed
      */
     public function readAt($index)
     {
-        if ($index > 0 && $this->lexer->getStream()->cursor()-$this->cursor < $index) {
+        if ($index > 0 && $this->lexer->getStream()->cursor() - $this->cursor < $index) {
             $i = 0;
-            while (($token = $this->lexer->nextToken()) && $i<$index) {
+            while (($token = $this->lexer->nextToken()) && $i < $index) {
                 $this->input[] = $token;
-                $i++;
+                ++$i;
             }
         }
 
@@ -55,7 +55,7 @@ class TokenStream extends Stream
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasNext()
     {

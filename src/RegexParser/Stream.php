@@ -10,7 +10,7 @@ class Stream implements StreamInterface
     protected $input;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $cursor;
 
@@ -32,7 +32,7 @@ class Stream implements StreamInterface
             return false;
         }
 
-        $this->cursor++;
+        ++$this->cursor;
 
         return $this->current();
     }
@@ -46,7 +46,7 @@ class Stream implements StreamInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasNext()
     {
@@ -54,7 +54,7 @@ class Stream implements StreamInterface
     }
 
     /**
-     * @param integer $index
+     * @param int $index
      *
      * @return mixed|false
      */
@@ -64,7 +64,7 @@ class Stream implements StreamInterface
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function cursor()
     {
@@ -80,10 +80,8 @@ class Stream implements StreamInterface
     }
 
     /**
-     * @param integer $index
-     * @param mixed   $value
-     *
-     * @return void
+     * @param int   $index
+     * @param mixed $value
      */
     public function replace($index, $value)
     {
@@ -95,6 +93,6 @@ class Stream implements StreamInterface
      */
     public function __clone()
     {
-        return new Stream($this->input);
+        return new self($this->input);
     }
 }

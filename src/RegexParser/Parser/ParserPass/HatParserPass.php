@@ -37,7 +37,7 @@ class HatParserPass extends AbstractParserPass
                         $this
                             ->parser
                             ->parseStream(new Stream($childNodes), 'BracketBlockParserPass', array(
-                                'BracketBlockParserPass'
+                                'BracketBlockParserPass',
                             ))
                             ->input()
                         )));

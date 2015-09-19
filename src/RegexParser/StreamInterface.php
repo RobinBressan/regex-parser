@@ -10,7 +10,7 @@ interface StreamInterface
     public function next();
 
     /**
-     * @param integer $index
+     * @param int $index
      *
      * @return mixed
      */
@@ -27,20 +27,18 @@ interface StreamInterface
     public function input();
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasNext();
 
     /**
-     * @return integer
+     * @return int
      */
     public function cursor();
 
     /**
-     * @param integer $index
-     * @param mixed   $value
-     *
-     * @return void
+     * @param int   $index
+     * @param mixed $value
      */
     public function replace($index, $value);
 

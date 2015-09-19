@@ -7,13 +7,13 @@ use RegexParser\Parser\AbstractNode;
 class BlockNode extends AbstractNode
 {
     /**
-     * @var boolean
+     * @var bool
      */
     protected $isSubPattern;
 
     /**
-     * @param array   $childNodes
-     * @param boolean $isSubPattern
+     * @param array $childNodes
+     * @param bool  $isSubPattern
      */
     public function __construct(array $childNodes, $isSubPattern = false)
     {
@@ -22,7 +22,7 @@ class BlockNode extends AbstractNode
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSubPattern()
     {

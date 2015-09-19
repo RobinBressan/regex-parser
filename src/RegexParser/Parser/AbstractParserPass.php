@@ -11,8 +11,6 @@ abstract class AbstractParserPass implements ParserPassInterface
 
     /**
      * @param Parser $parser
-     *
-     * @return void
      */
     public function setParser(Parser $parser)
     {

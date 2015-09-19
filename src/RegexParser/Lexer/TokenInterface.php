@@ -7,7 +7,7 @@ interface TokenInterface
     /**
      * @param string $tokenName
      *
-     * @return boolean
+     * @return bool
      */
     public function is($tokenName);
 

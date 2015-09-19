@@ -50,8 +50,6 @@ abstract class AbstractNode implements NodeInterface
 
     /**
      * @param NodeInterface $parent
-     *
-     * @return void
      */
     public function setParent(NodeInterface $parent)
     {
@@ -84,8 +82,6 @@ abstract class AbstractNode implements NodeInterface
 
     /**
      * @param NodeInterface $childNode
-     *
-     * @return void
      */
     public function appendChild(NodeInterface $childNode)
     {

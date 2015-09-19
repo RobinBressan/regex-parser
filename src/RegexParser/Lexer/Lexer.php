@@ -148,19 +148,19 @@ class Lexer
     /**
      * @param string $char
      *
-     * @return boolean
+     * @return bool
      */
     protected function isWhitespace($char)
     {
         // IE treats non-breaking space as \u00A0
-        return ($char === " " || $char === "\r" || $char === "\t" ||
+        return ($char === ' ' || $char === "\r" || $char === "\t" ||
                 $char === "\n" || $char === "\v" || $char === "\u00A0");
     }
 
     /**
      * @param string $char
      *
-     * @return boolean
+     * @return bool
      */
     protected function isInteger($char)
     {
@@ -170,7 +170,7 @@ class Lexer
     /**
      * @param string $char
      *
-     * @return boolean
+     * @return bool
      */
     protected function isAlpha($char)
     {
@@ -181,7 +181,7 @@ class Lexer
     /**
      * @param string $char
      *
-     * @return boolean
+     * @return bool
      */
     protected function isNewLine($char)
     {

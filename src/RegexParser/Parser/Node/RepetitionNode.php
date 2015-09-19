@@ -7,20 +7,20 @@ use RegexParser\Parser\AbstractNode;
 class RepetitionNode extends AbstractNode
 {
     /**
-     * @param integer|null $min
-     * @param integer|null $max
-     * @param array        $childNodes
+     * @param int|null $min
+     * @param int|null $max
+     * @param array    $childNodes
      */
     public function __construct($min, $max, array $childNodes)
     {
         parent::__construct('repetition', array(
             'min' => $min,
-            'max' => $max
+            'max' => $max,
         ), $childNodes);
     }
 
     /**
-     * @return integer|null
+     * @return int|null
      */
     public function getMin()
     {
@@ -28,7 +28,7 @@ class RepetitionNode extends AbstractNode
     }
 
     /**
-     * @return integer|null
+     * @return int|null
      */
     public function getMax()
     {

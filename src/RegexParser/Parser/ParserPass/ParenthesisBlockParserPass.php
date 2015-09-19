@@ -37,7 +37,7 @@ class ParenthesisBlockParserPass extends AbstractParserPass
 
             // Looking for `(` pattern
             if ($token->is('T_LEFT_PARENTHESIS')) {
-                $blocksFound++;
+                ++$blocksFound;
 
                 if ($blocksFound > 1) {
                     // We matched a nested parenthesis so we ignore it
@@ -56,7 +56,7 @@ class ParenthesisBlockParserPass extends AbstractParserPass
                 } else {
                     $stack[] = $token;
                 }
-                $blocksFound--;
+                --$blocksFound;
             } elseif ($blocksFound > 0) {
                 $stack[] = $token;
             } elseif ($blocksFound === 0 && $token->is('T_RIGHT_PARENTHESIS')) {

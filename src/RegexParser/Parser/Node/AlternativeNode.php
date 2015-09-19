@@ -7,7 +7,7 @@ use RegexParser\Parser\AbstractNode;
 class AlternativeNode extends AbstractNode
 {
     /**
-     * @var boolean
+     * @var bool
      */
     protected $isSubPattern;
 

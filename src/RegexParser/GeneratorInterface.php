@@ -12,7 +12,7 @@ interface GeneratorInterface
     public function __construct(NodeInterface $ast);
 
     /**
-     * @param integer $seed
+     * @param int $seed
      *
      * @return string
      */

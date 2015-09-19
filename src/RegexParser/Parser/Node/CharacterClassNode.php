@@ -14,7 +14,7 @@ class CharacterClassNode extends AbstractNode
     {
         parent::__construct('character-class', array(
             'start' => $start,
-            'end'   => $end
+            'end' => $end,
         ));
     }
 

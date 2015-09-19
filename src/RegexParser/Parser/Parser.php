@@ -14,7 +14,6 @@ use RegexParser\Parser\ParserPass\HatParserPass;
 use RegexParser\Parser\ParserPass\ParenthesisBlockParserPass;
 use RegexParser\Parser\ParserPass\RepetitionParserPass;
 use RegexParser\Parser\ParserPass\TokenParserPass;
-use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
 class Parser
@@ -45,8 +44,6 @@ class Parser
 
     /**
      * @param ParserPassInterface $parserPass
-     *
-     * @return void
      */
     public function registerParserPass(ParserPassInterface $parserPass)
     {

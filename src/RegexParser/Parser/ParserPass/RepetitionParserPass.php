@@ -25,7 +25,7 @@ class RepetitionParserPass extends AbstractParserPass
         $blockFound = false;
         $stack = array(
             0 => array(),
-            1 => array()
+            1 => array(),
         );
         $step = 0;
         $result = array();
@@ -94,15 +94,15 @@ class RepetitionParserPass extends AbstractParserPass
             } elseif ($blockFound && $token->is('T_INTEGER')) {
                 $stack[$step][] = $token;
             } elseif ($blockFound && $step === 0 && $token->is('T_COMMA')) {
-                $step++;
+                ++$step;
             } elseif ($blockFound && $token->is('T_RIGHT_BRACE')) {
                 $blockFound = false;
                 array_pop($result);
 
-                $min = (int) implode('',array_map(function ($t) { return $t->getValue(); }, $stack[0]));
+                $min = (int) implode('', array_map(function ($t) { return $t->getValue(); }, $stack[0]));
 
                 if (count($stack[1]) > 0) {
-                    $max = (int) implode('',array_map(function ($t) { return $t->getValue(); }, $stack[1]));
+                    $max = (int) implode('', array_map(function ($t) { return $t->getValue(); }, $stack[1]));
                     if ($max !== null && $min >= $max) {
                         throw new ParserException('Min must be greater than max in a repetition pattern');
                     }
@@ -121,7 +121,7 @@ class RepetitionParserPass extends AbstractParserPass
 
                 $stack = array(
                     0 => array(),
-                    1 => array()
+                    1 => array(),
                 );
                 $step = 0;
 

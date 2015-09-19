@@ -21,8 +21,6 @@ interface NodeInterface
 
     /**
      * @param NodeInterface $childNode
-     *
-     * @return void
      */
     public function appendChild(NodeInterface $childNode);
 

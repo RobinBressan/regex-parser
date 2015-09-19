@@ -28,7 +28,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * @param integer $seed
+     * @param int $seed
      *
      * @return string
      */
@@ -80,7 +80,7 @@ class RandomGenerator extends AbstractGenerator
     {
         $childNodes = $node->getChildNodes();
 
-        return $this->printNode($childNodes[mt_rand(0, count($childNodes) -1 )]);
+        return $this->printNode($childNodes[mt_rand(0, count($childNodes) - 1)]);
     }
 
     /**
@@ -166,7 +166,7 @@ class RandomGenerator extends AbstractGenerator
 
         $output = '';
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             foreach ($node->getChildNodes() as $childNode) {
                 $output .= $this->printNode($childNode);
             }

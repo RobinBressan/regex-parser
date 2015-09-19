@@ -37,7 +37,7 @@ class BracketBlockParserPass extends AbstractParserPass
 
             // Looking for `[` pattern
             if ($token->is('T_LEFT_BRACKET')) {
-                $blocksFound++;
+                ++$blocksFound;
 
                 if ($blocksFound > 1) {
                     // We matched a nested parenthesis so we ignore it
@@ -49,7 +49,7 @@ class BracketBlockParserPass extends AbstractParserPass
                         $this
                             ->parser
                             ->parseStream(new Stream($stack), 'BracketBlockParserPass', array(
-                                'BracketBlockParserPass'
+                                'BracketBlockParserPass',
                             ))
                             ->input()
                     );
@@ -57,7 +57,7 @@ class BracketBlockParserPass extends AbstractParserPass
                 } else {
                     $stack[] = $token;
                 }
-                $blocksFound--;
+                --$blocksFound;
             } elseif ($blocksFound > 0) {
                 $stack[] = $token;
             } elseif ($blocksFound === 0 && $token->is('T_RIGHT_BRACKET')) {
