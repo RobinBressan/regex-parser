@@ -2,22 +2,15 @@
 
 namespace RegexParser\Parser;
 
-/**
- * ...
- */
 abstract class AbstractParserPass implements ParserPassInterface
 {
     /**
-     * [$parser description]
-     *
      * @var Parser
      */
     protected $parser;
 
     /**
-     * [setParser description]
-     *
-     * @param Parser $parser [description]
+     * @param Parser $parser
      *
      * @return void
      */
@@ -27,8 +20,6 @@ abstract class AbstractParserPass implements ParserPassInterface
     }
 
     /**
-     * [getName description]
-     *
      * @return string
      */
     public function getName()

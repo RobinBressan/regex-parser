@@ -4,36 +4,25 @@ namespace RegexParser\Lexer;
 
 use RegexParser\Lexer\Exception\LexerException;
 
-/**
- * ...
- */
 class Lexer
 {
     /**
-     * [$stream description]
-     *
      * @var StringStream
      */
     protected $stream;
 
     /**
-     * [$currentChar description]
-     *
      * @var string
      */
     protected $currentChar;
 
     /**
-     * [$lexemeMap description]
-     *
      * @var null|array
      */
     protected static $lexemeMap = null;
 
     /**
-     * [__construct description]
-     *
-     * @param StringStream $stream [description]
+     * @param StringStream $stream
      */
     public function __construct(StringStream $stream)
     {
@@ -45,9 +34,7 @@ class Lexer
     }
 
     /**
-     * [create description]
-     *
-     * @param string $input [description]
+     * @param string $input
      *
      * @return Lexer
      */
@@ -57,8 +44,6 @@ class Lexer
     }
 
     /**
-     * [getStream description]
-     *
      * @return StringStream
      */
     public function getStream()
@@ -67,9 +52,7 @@ class Lexer
     }
 
     /**
-     * [nextToken description]
-     *
-     * @throws LexerException If [this condition is met]
+     * @throws LexerException
      *
      * @return Token|EscapeToken|void
      */
@@ -124,9 +107,7 @@ class Lexer
     }
 
     /**
-     * [readUnicode description]
-     *
-     * @throws LexerException If [this condition is met]
+     * @throws LexerException
      *
      * @return EscapeToken|void
      */
@@ -165,9 +146,7 @@ class Lexer
     }
 
     /**
-     * [isWhitespace description]
-     *
-     * @param string $char [description]
+     * @param string $char
      *
      * @return boolean
      */
@@ -179,9 +158,7 @@ class Lexer
     }
 
     /**
-     * [isInteger description]
-     *
-     * @param string $char [description]
+     * @param string $char
      *
      * @return boolean
      */
@@ -191,9 +168,7 @@ class Lexer
     }
 
     /**
-     * [isAlpha description]
-     *
-     * @param string $char [description]
+     * @param string $char
      *
      * @return boolean
      */
@@ -204,9 +179,7 @@ class Lexer
     }
 
     /**
-     * [isNewLine description]
-     *
-     * @param string $char [description]
+     * @param string $char
      *
      * @return boolean
      */

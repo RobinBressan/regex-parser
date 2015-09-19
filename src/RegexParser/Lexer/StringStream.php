@@ -4,15 +4,10 @@ namespace RegexParser\Lexer;
 
 use RegexParser\Stream;
 
-/**
- * ...
- */
 class StringStream extends Stream
 {
     /**
-     * [__construct description]
-     *
-     * @param string $input [description]
+     * @param string $input
      */
     public function __construct($input)
     {

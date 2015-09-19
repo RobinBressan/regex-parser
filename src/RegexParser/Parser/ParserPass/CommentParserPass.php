@@ -8,18 +8,13 @@ use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
-/**
- * ...
- */
 class CommentParserPass extends AbstractParserPass
 {
     /**
-     * [parseStream description]
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
      *
-     * @param StreamInterface $stream     [description]
-     * @param string|null     $parentPass [description]
-     *
-     * @throws ParserException If [this condition is met]
+     * @throws ParserException
      *
      * @return Stream
      */

@@ -13,15 +13,10 @@ use RegexParser\Parser\Node\RepetitionNode;
 use RegexParser\Parser\Node\TokenNode;
 use RegexParser\Parser\Parser;
 
-/**
- * ...
- */
 class RandomGenerator extends AbstractGenerator
 {
     /**
-     * [create description]
-     *
-     * @param string $pattern [description]
+     * @param string $pattern
      *
      * @return RandomGenerator
      */
@@ -33,9 +28,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [generate description]
-     *
-     * @param integer $seed [description]
+     * @param integer $seed
      *
      * @return string
      */
@@ -55,9 +48,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [printNode description]
-     *
-     * @param NodeInterface $node [description]
+     * @param NodeInterface $node
      *
      * @return string
      */
@@ -81,9 +72,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [printAlternativeNode description]
-     *
-     * @param AlternativeNode $node [description]
+     * @param AlternativeNode $node
      *
      * @return string
      */
@@ -95,9 +84,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [printBlockNode description]
-     *
-     * @param BlockNode $node [description]
+     * @param BlockNode $node
      *
      * @return string
      */
@@ -119,9 +106,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [printBeginNode description]
-     *
-     * @param BeginNode $node [description]
+     * @param BeginNode $node
      *
      * @return string
      */
@@ -138,9 +123,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [printEndNode description]
-     *
-     * @param EndNode $node [description]
+     * @param EndNode $node
      *
      * @return string
      */
@@ -157,9 +140,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [printCharacterClassNode description]
-     *
-     * @param CharacterClassNode $node [description]
+     * @param CharacterClassNode $node
      *
      * @return string
      */
@@ -171,9 +152,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [printRepetitionNode description]
-     *
-     * @param RepetitionNode $node [description]
+     * @param RepetitionNode $node
      *
      * @return string
      */
@@ -197,9 +176,7 @@ class RandomGenerator extends AbstractGenerator
     }
 
     /**
-     * [printTokenNode description]
-     *
-     * @param TokenNode $node [description]
+     * @param TokenNode $node
      *
      * @return string
      */

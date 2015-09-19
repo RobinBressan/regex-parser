@@ -8,16 +8,11 @@ use RegexParser\Parser\Node\EndNode;
 use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
-/**
- * ...
- */
 class DollarParserPass extends AbstractParserPass
 {
     /**
-     * [parseStream description]
-     *
-     * @param StreamInterface $stream     [description]
-     * @param string|null     $parentPass [description]
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
      *
      * @return Stream
      */

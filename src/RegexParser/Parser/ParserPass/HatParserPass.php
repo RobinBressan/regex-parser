@@ -9,16 +9,11 @@ use RegexParser\Parser\Node\ExclusionNode;
 use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
-/**
- * ...
- */
 class HatParserPass extends AbstractParserPass
 {
     /**
-     * [parseStream description]
-     *
-     * @param StreamInterface $stream     [description]
-     * @param string|null     $parentPass [description]
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
      *
      * @return Stream
      */

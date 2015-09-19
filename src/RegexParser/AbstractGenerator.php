@@ -4,22 +4,15 @@ namespace RegexParser;
 
 use RegexParser\Parser\NodeInterface;
 
-/**
- * ...
- */
 abstract class AbstractGenerator implements GeneratorInterface
 {
     /**
-     * [$ast description]
-     *
      * @var NodeInterface
      */
     protected $ast;
 
     /**
-     * [__construct description]
-     *
-     * @param NodeInterface $ast [description]
+     * @param NodeInterface $ast Abstract syntax tree.
      */
     public function __construct(NodeInterface $ast)
     {

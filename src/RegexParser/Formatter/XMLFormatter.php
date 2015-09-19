@@ -16,22 +16,15 @@ use RegexParser\Parser\Node\RepetitionNode;
 use RegexParser\Parser\Node\TokenNode;
 use RegexParser\Parser\NodeInterface;
 
-/**
- * ...
- */
 class XMLFormatter extends AbstractFormatter
 {
     /**
-     * [$document description]
-     *
      * @var DomDocument
      */
     protected $document;
 
     /**
-     * [format description]
-     *
-     * @param NodeInterface $ast [description]
+     * @param NodeInterface $ast Abstract syntax tree.
      *
      * @return DomDocument
      */
@@ -44,10 +37,8 @@ class XMLFormatter extends AbstractFormatter
     }
 
     /**
-     * [createXmlNode description]
-     *
-     * @param string $name  [description]
-     * @param string $value [description]
+     * @param string $name
+     * @param string $value
      *
      * @return \DOMElement
      */
@@ -61,9 +52,7 @@ class XMLFormatter extends AbstractFormatter
     }
 
     /**
-     * [formatNode description]
-     *
-     * @param NodeInterface $node [description]
+     * @param NodeInterface $node
      *
      * @return \DOMElement
      */
@@ -97,9 +86,7 @@ class XMLFormatter extends AbstractFormatter
     }
 
     /**
-     * [formatASTNode description]
-     *
-     * @param ASTNode $node [description]
+     * @param ASTNode $node
      *
      * @return \DOMElement
      */
@@ -111,9 +98,7 @@ class XMLFormatter extends AbstractFormatter
     }
 
     /**
-     * [formatTokenNode description]
-     *
-     * @param TokenNode $node [description]
+     * @param TokenNode $node
      *
      * @return \DOMElement
      */
@@ -131,9 +116,7 @@ class XMLFormatter extends AbstractFormatter
     }
 
     /**
-     * [formatBlockNode description]
-     *
-     * @param BlockNode $node [description]
+     * @param BlockNode $node
      *
      * @return \DOMElement
      */
@@ -146,9 +129,7 @@ class XMLFormatter extends AbstractFormatter
     }
 
     /**
-     * [formatCharacterClassNode description]
-     *
-     * @param CharacterClassNode $node [description]
+     * @param CharacterClassNode $node
      *
      * @return \DOMElement
      */
@@ -162,9 +143,7 @@ class XMLFormatter extends AbstractFormatter
     }
 
     /**
-     * [formatRepetitionNode description]
-     *
-     * @param RepetitionNode $node [description]
+     * @param RepetitionNode $node
      *
      * @return \DOMElement
      */
@@ -181,9 +160,7 @@ class XMLFormatter extends AbstractFormatter
     }
 
     /**
-     * [formatDefaultNode description]
-     *
-     * @param NodeInterface $node [description]
+     * @param NodeInterface $node
      *
      * @return \DOMElement
      */

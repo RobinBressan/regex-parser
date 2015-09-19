@@ -2,45 +2,32 @@
 
 namespace RegexParser\Parser;
 
-/**
- * ...
- */
 abstract class AbstractNode implements NodeInterface
 {
     /**
-     * [$childNodes description]
-     *
      * @var array
      */
     protected $childNodes = array();
 
     /**
-     * [$name description]
-     *
      * @var string
      */
     protected $name;
 
     /**
-     * [$value description]
-     *
      * @var null|mixed
      */
     protected $value = null;
 
     /**
-     * [$parent description]
-     *
      * @var null
      */
     protected $parent = null;
 
     /**
-     * [__construct description]
-     *
-     * @param string $name       [description]
-     * @param mixed  $value      [description]
-     * @param array  $childNodes [description]
+     * @param string $name
+     * @param mixed  $value
+     * @param array  $childNodes
      */
     public function __construct($name, $value, $childNodes = array())
     {
@@ -54,8 +41,6 @@ abstract class AbstractNode implements NodeInterface
     }
 
     /**
-     * [getParent description]
-     *
      * @return NodeInterface
      */
     public function getParent()
@@ -64,9 +49,7 @@ abstract class AbstractNode implements NodeInterface
     }
 
     /**
-     * [setParent description]
-     *
-     * @param NodeInterface $parent [description]
+     * @param NodeInterface $parent
      *
      * @return void
      */
@@ -76,8 +59,6 @@ abstract class AbstractNode implements NodeInterface
     }
 
     /**
-     * [getName description]
-     *
      * @return string
      */
     public function getName()
@@ -86,8 +67,6 @@ abstract class AbstractNode implements NodeInterface
     }
 
     /**
-     * [getValue description]
-     *
      * @return mixed
      */
     public function getValue()
@@ -96,8 +75,6 @@ abstract class AbstractNode implements NodeInterface
     }
 
     /**
-     * [getChildNodes description]
-     *
      * @return array
      */
     public function getChildNodes()
@@ -106,9 +83,7 @@ abstract class AbstractNode implements NodeInterface
     }
 
     /**
-     * [appendChild description]
-     *
-     * @param NodeInterface $childNode [description]
+     * @param NodeInterface $childNode
      *
      * @return void
      */

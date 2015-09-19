@@ -2,30 +2,21 @@
 
 namespace RegexParser\Lexer;
 
-/**
- * ...
- */
 class Token implements TokenInterface
 {
     /**
-     * [$name description]
-     *
      * @var string
      */
     protected $name;
 
     /**
-     * [$value description]
-     *
      * @var mixed
      */
     protected $value;
 
     /**
-     * [__construct description]
-     *
-     * @param string $name  [description]
-     * @param mixed  $value [description]
+     * @param string $name
+     * @param mixed  $value
      */
     public function __construct($name, $value = null)
     {
@@ -34,9 +25,7 @@ class Token implements TokenInterface
     }
 
     /**
-     * [is description]
-     *
-     * @param string $tokenName [description]
+     * @param string $tokenName
      *
      * @return boolean
      */
@@ -46,8 +35,6 @@ class Token implements TokenInterface
     }
 
     /**
-     * [getName description]
-     *
      * @return string
      */
     public function getName()
@@ -56,8 +43,6 @@ class Token implements TokenInterface
     }
 
     /**
-     * [getValue description]
-     *
      * @return mixed
      */
     public function getValue()
@@ -66,8 +51,6 @@ class Token implements TokenInterface
     }
 
     /**
-     * [__toString description]
-     *
      * @return string
      */
     public function __toString()

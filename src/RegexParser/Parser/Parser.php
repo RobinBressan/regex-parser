@@ -17,21 +17,14 @@ use RegexParser\Parser\ParserPass\TokenParserPass;
 use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
-/**
- * ...
- */
 class Parser
 {
     /**
-     * [$parserPasses description]
-     *
      * @var array
      */
     protected $parserPasses = array();
 
     /**
-     * [create description]
-     *
      * @return Parser
      */
     public static function create()
@@ -42,18 +35,16 @@ class Parser
         $parser->registerParserPass(new ParenthesisBlockParserPass());
         $parser->registerParserPass(new CharacterClassParserPass());
         $parser->registerParserPass(new AlternativeParserPass());
-        $parser->registerParserPass(new RepetitionParserPass()); // must be the last one juste before dollar pass
+        $parser->registerParserPass(new RepetitionParserPass()); // must be the last one just before dollar pass
         $parser->registerParserPass(new DollarParserPass());
         $parser->registerParserPass(new HatParserPass());
-        $parser->registerParserPass(new TokenParserPass()); // must be the last one juste before token pass
+        $parser->registerParserPass(new TokenParserPass()); // must be the last one just before token pass
 
         return $parser;
     }
 
     /**
-     * [registerParserPass description]
-     *
-     * @param ParserPassInterface $parserPass [description]
+     * @param ParserPassInterface $parserPass
      *
      * @return void
      */
@@ -64,11 +55,9 @@ class Parser
     }
 
     /**
-     * [parseStream description]
-     *
-     * @param StreamInterface $stream         [description]
-     * @param string|null     $parentPass     [description]
-     * @param array           $excludedPasses [description]
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
+     * @param array           $excludedPasses
      *
      * @return StreamInterface
      */
@@ -84,9 +73,7 @@ class Parser
     }
 
     /**
-     * [parse description]
-     *
-     * @param string $input [description]
+     * @param string $input
      *
      * @return ASTNode
      */

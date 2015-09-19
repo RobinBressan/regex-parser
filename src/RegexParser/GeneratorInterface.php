@@ -4,22 +4,15 @@ namespace RegexParser;
 
 use RegexParser\Parser\NodeInterface;
 
-/**
- * ...
- */
 interface GeneratorInterface
 {
     /**
-     * [__construct description]
-     *
-     * @param NodeInterface $ast [description]
+     * @param NodeInterface $ast Abstract syntax tree.
      */
     public function __construct(NodeInterface $ast);
 
     /**
-     * [generate description]
-     *
-     * @param integer $seed [description]
+     * @param integer $seed
      *
      * @return string
      */

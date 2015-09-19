@@ -4,22 +4,15 @@ namespace RegexParser\Lexer;
 
 use RegexParser\Stream;
 
-/**
- * ...
- */
 class TokenStream extends Stream
 {
     /**
-     * [$lexer description]
-     *
      * @var Lexer
      */
     protected $lexer;
 
     /**
-     * [__construct description]
-     *
-     * @param Lexer $lexer [description]
+     * @param Lexer $lexer
      */
     public function __construct(Lexer $lexer)
     {
@@ -28,8 +21,6 @@ class TokenStream extends Stream
     }
 
     /**
-     * [next description]
-     *
      * @return mixed
      */
     public function next()
@@ -46,9 +37,7 @@ class TokenStream extends Stream
     }
 
     /**
-     * [readAt description]
-     *
-     * @param integer $index [description]
+     * @param integer $index
      *
      * @return mixed
      */
@@ -66,9 +55,7 @@ class TokenStream extends Stream
     }
 
     /**
-     * [hasNext description]
-     *
-     * @return boolean [description]
+     * @return boolean
      */
     public function hasNext()
     {

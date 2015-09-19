@@ -9,16 +9,11 @@ use RegexParser\Parser\Node\TokenNode;
 use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
-/**
- * ...
- */
 class CharacterClassParserPass extends AbstractParserPass
 {
     /**
-     * [parseStream description]
-     *
-     * @param StreamInterface $stream     [description]
-     * @param string|null     $parentPass [description]
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
      *
      * @return Stream
      */
@@ -61,11 +56,11 @@ class CharacterClassParserPass extends AbstractParserPass
     }
 
     /**
-     * Valid that the two tokens of a character class are valid.
+     * Checks if two tokens of a character class are valid.
      *
-     * @param TokenInterface $previous   [description]
-     * @param TokenInterface $next       [description]
-     * @param string|null    $parentPass [description]
+     * @param TokenInterface $previous
+     * @param TokenInterface $next
+     * @param string|null    $parentPass
      *
      * @return boolean
      */

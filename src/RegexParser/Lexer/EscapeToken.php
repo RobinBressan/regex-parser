@@ -2,24 +2,17 @@
 
 namespace RegexParser\Lexer;
 
-/**
- * ...
- */
 class EscapeToken extends Token
 {
     /**
-     * [$isExclusionSequence description]
-     *
      * @var boolean
      */
     protected $isExclusionSequence;
 
     /**
-     * [__construct description]
-     *
-     * @param string  $name                [description]
-     * @param mixed   $value               [description]
-     * @param boolean $isExclusionSequence [description]
+     * @param string  $name
+     * @param mixed   $value
+     * @param boolean $isExclusionSequence
      */
     public function __construct($name, $value, $isExclusionSequence = false)
     {
@@ -28,9 +21,7 @@ class EscapeToken extends Token
     }
 
     /**
-     * [setIsExclusionSequence description]
-     *
-     * @param boolean $isExclusionSequence [description]
+     * @param boolean $isExclusionSequence
      *
      * @return void
      */
@@ -40,9 +31,7 @@ class EscapeToken extends Token
     }
 
     /**
-     * [isExclusionSequence description]
-     *
-     * @return boolean [description]
+     * @return boolean
      */
     public function isExclusionSequence()
     {

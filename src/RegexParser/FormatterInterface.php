@@ -4,15 +4,10 @@ namespace RegexParser;
 
 use RegexParser\Parser\NodeInterface;
 
-/**
- * ...
- */
 interface FormatterInterface
 {
     /**
-     * [format description]
-     *
-     * @param NodeInterface $ast [description]
+     * @param NodeInterface $ast Abstract syntax tree.
      *
      * @return mixed
      */

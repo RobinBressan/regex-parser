@@ -2,29 +2,20 @@
 
 namespace RegexParser;
 
-/**
- * ...
- */
 class Stream implements StreamInterface
 {
     /**
-     * [$input description]
-     *
      * @var array
      */
     protected $input;
 
     /**
-     * [$cursor description]
-     *
      * @var integer
      */
     protected $cursor;
 
     /**
-     * [__construct description]
-     *
-     * @param array $input [description]
+     * @param array $input
      */
     public function __construct(array $input)
     {
@@ -33,8 +24,6 @@ class Stream implements StreamInterface
     }
 
     /**
-     * [next description]
-     *
      * @return mixed
      */
     public function next()
@@ -49,8 +38,6 @@ class Stream implements StreamInterface
     }
 
     /**
-     * [current description]
-     *
      * @return mixed
      */
     public function current()
@@ -59,8 +46,6 @@ class Stream implements StreamInterface
     }
 
     /**
-     * [hasNext description]
-     *
      * @return boolean
      */
     public function hasNext()
@@ -69,9 +54,7 @@ class Stream implements StreamInterface
     }
 
     /**
-     * [readAt description]
-     *
-     * @param integer $index [description]
+     * @param integer $index
      *
      * @return mixed|false
      */
@@ -81,8 +64,6 @@ class Stream implements StreamInterface
     }
 
     /**
-     * [cursor description]
-     *
      * @return integer
      */
     public function cursor()
@@ -91,8 +72,6 @@ class Stream implements StreamInterface
     }
 
     /**
-     * [input description]
-     *
      * @return array
      */
     public function input()
@@ -101,10 +80,8 @@ class Stream implements StreamInterface
     }
 
     /**
-     * [replace description]
-     *
-     * @param integer $index [description]
-     * @param mixed   $value [description]
+     * @param integer $index
+     * @param mixed   $value
      *
      * @return void
      */
@@ -114,8 +91,6 @@ class Stream implements StreamInterface
     }
 
     /**
-     * [__clone description]
-     *
      * @return Stream
      */
     public function __clone()

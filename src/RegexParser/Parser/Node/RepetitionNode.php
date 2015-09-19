@@ -4,17 +4,12 @@ namespace RegexParser\Parser\Node;
 
 use RegexParser\Parser\AbstractNode;
 
-/**
- * ...
- */
 class RepetitionNode extends AbstractNode
 {
     /**
-     * [__construct description]
-     *
-     * @param integer|null $min        [description]
-     * @param integer|null $max        [description]
-     * @param array        $childNodes [description]
+     * @param integer|null $min
+     * @param integer|null $max
+     * @param array        $childNodes
      */
     public function __construct($min, $max, array $childNodes)
     {
@@ -25,8 +20,6 @@ class RepetitionNode extends AbstractNode
     }
 
     /**
-     * [getMin description]
-     *
      * @return integer|null
      */
     public function getMin()
@@ -35,8 +28,6 @@ class RepetitionNode extends AbstractNode
     }
 
     /**
-     * [getMax description]
-     *
      * @return integer|null
      */
     public function getMax()

@@ -10,18 +10,13 @@ use RegexParser\Parser\Node\TokenNode;
 use RegexParser\Stream;
 use RegexParser\StreamInterface;
 
-/**
- * ...
- */
 class RepetitionParserPass extends AbstractParserPass
 {
     /**
-     * [parseStream description]
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
      *
-     * @param StreamInterface $stream     [description]
-     * @param string|null     $parentPass [description]
-     *
-     * @throws ParserException If [this condition is met]
+     * @throws ParserException
      *
      * @return Stream
      */

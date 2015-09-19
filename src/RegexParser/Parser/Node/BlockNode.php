@@ -4,23 +4,16 @@ namespace RegexParser\Parser\Node;
 
 use RegexParser\Parser\AbstractNode;
 
-/**
- * ...
- */
 class BlockNode extends AbstractNode
 {
     /**
-     * [$isSubPattern description]
-     *
      * @var boolean
      */
     protected $isSubPattern;
 
     /**
-     * [__construct description]
-     *
-     * @param array   $childNodes   [description]
-     * @param boolean $isSubPattern [description]
+     * @param array   $childNodes
+     * @param boolean $isSubPattern
      */
     public function __construct(array $childNodes, $isSubPattern = false)
     {
@@ -29,8 +22,6 @@ class BlockNode extends AbstractNode
     }
 
     /**
-     * [isSubPattern description]
-     *
      * @return boolean
      */
     public function isSubPattern()

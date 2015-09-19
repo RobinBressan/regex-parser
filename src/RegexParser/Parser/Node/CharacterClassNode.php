@@ -4,16 +4,11 @@ namespace RegexParser\Parser\Node;
 
 use RegexParser\Parser\AbstractNode;
 
-/**
- * ...
- */
 class CharacterClassNode extends AbstractNode
 {
     /**
-     * [__construct description]
-     *
-     * @param mixed $start [description]
-     * @param mixed $end   [description]
+     * @param mixed $start
+     * @param mixed $end
      */
     public function __construct($start, $end)
     {
@@ -24,8 +19,6 @@ class CharacterClassNode extends AbstractNode
     }
 
     /**
-     * [getStart description]
-     *
      * @return mixed
      */
     public function getStart()
@@ -34,8 +27,6 @@ class CharacterClassNode extends AbstractNode
     }
 
     /**
-     * [getEnd description]
-     *
      * @return mixed
      */
     public function getEnd()

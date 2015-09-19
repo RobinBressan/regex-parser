@@ -4,22 +4,15 @@ namespace RegexParser\Parser\Node;
 
 use RegexParser\Parser\AbstractNode;
 
-/**
- * ...
- */
 class AlternativeNode extends AbstractNode
 {
     /**
-     * [$isSubPattern description]
-     *
      * @var boolean
      */
     protected $isSubPattern;
 
     /**
-     * [__construct description]
-     *
-     * @param array $childNodes [description]
+     * @param array $childNodes
      */
     public function __construct(array $childNodes)
     {
