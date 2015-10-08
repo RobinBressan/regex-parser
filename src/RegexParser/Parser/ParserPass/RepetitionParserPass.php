@@ -3,21 +3,29 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
+use RegexParser\Parser\AbstractParserPass;
+use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\Node\RepetitionNode;
 use RegexParser\Parser\Node\TokenNode;
-use RegexParser\Parser\Exception\ParserException;
-use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
 class RepetitionParserPass extends AbstractParserPass
 {
+    /**
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
+     *
+     * @throws ParserException
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $blockFound = false;
         $stack = array(
             0 => array(),
-            1 => array()
+            1 => array(),
         );
         $step = 0;
         $result = array();
@@ -45,7 +53,7 @@ class RepetitionParserPass extends AbstractParserPass
 
                 // We reinject the current node into the stream to handle case like +? and so on...
                 $stream->replace($stream->cursor(), $result[count($result) - 1]);
-            } else if ($token->is('T_PLUS')) { // Looking for `+` pattern
+            } elseif ($token->is('T_PLUS')) { // Looking for `+` pattern
                 if ($stream->cursor() < 1) {
                     throw new ParserException('A repetition pattern must follow a token');
                 }
@@ -61,7 +69,7 @@ class RepetitionParserPass extends AbstractParserPass
 
                 // We reinject the current node into the stream to handle case like +? and so on...
                 $stream->replace($stream->cursor(), $result[count($result) - 1]);
-            } else if ($token->is('T_QUESTION')) { // Looking for `?` pattern
+            } elseif ($token->is('T_QUESTION')) { // Looking for `?` pattern
                 if ($stream->cursor() < 1) {
                     throw new ParserException('A repetition pattern must follow a token');
                 }
@@ -77,24 +85,24 @@ class RepetitionParserPass extends AbstractParserPass
 
                 // We reinject the current node into the stream to handle case like +? and so on...
                 $stream->replace($stream->cursor(), $result[count($result) - 1]);
-            } else if ($token->is('T_LEFT_BRACE')) {
+            } elseif ($token->is('T_LEFT_BRACE')) {
                 if ($stream->cursor() < 1) {
                     throw new ParserException('A repetition pattern must follow a token');
                 }
 
                 $blockFound = true;
-            } else if ($blockFound && $token->is('T_INTEGER')) {
+            } elseif ($blockFound && $token->is('T_INTEGER')) {
                 $stack[$step][] = $token;
-            } else if ($blockFound && $step === 0 && $token->is('T_COMMA')) {
-                $step++;
-            } else if ($blockFound && $token->is('T_RIGHT_BRACE')) {
+            } elseif ($blockFound && $step === 0 && $token->is('T_COMMA')) {
+                ++$step;
+            } elseif ($blockFound && $token->is('T_RIGHT_BRACE')) {
                 $blockFound = false;
                 array_pop($result);
 
-                $min = (int)implode('',array_map(function($t) { return $t->getValue(); }, $stack[0]));
+                $min = (int) implode('', array_map(function ($t) { return $t->getValue(); }, $stack[0]));
 
                 if (count($stack[1]) > 0) {
-                    $max = (int)implode('',array_map(function($t) { return $t->getValue(); }, $stack[1]));
+                    $max = (int) implode('', array_map(function ($t) { return $t->getValue(); }, $stack[1]));
                     if ($max !== null && $min >= $max) {
                         throw new ParserException('Min must be greater than max in a repetition pattern');
                     }
@@ -109,18 +117,17 @@ class RepetitionParserPass extends AbstractParserPass
                     $child = new TokenNode($child);
                 }
 
-
                 $result[] = new RepetitionNode($min, $max, array($child));
 
                 $stack = array(
                     0 => array(),
-                    1 => array()
+                    1 => array(),
                 );
                 $step = 0;
 
                 // We reinject the current node into the stream to handle case like +? and so on...
                 $stream->replace($stream->cursor(), $result[count($result) - 1]);
-            } else if ($blockFound) {
+            } elseif ($blockFound) {
                 throw new ParserException('Invalid token in repetition pattern');
             } else {
                 $result[] = $token;
@@ -128,6 +135,7 @@ class RepetitionParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

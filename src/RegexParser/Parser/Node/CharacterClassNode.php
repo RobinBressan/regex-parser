@@ -6,18 +6,29 @@ use RegexParser\Parser\AbstractNode;
 
 class CharacterClassNode extends AbstractNode
 {
-    public function __construct($start, $end) {
+    /**
+     * @param mixed $start
+     * @param mixed $end
+     */
+    public function __construct($start, $end)
+    {
         parent::__construct('character-class', array(
             'start' => $start,
-            'end'   => $end
+            'end' => $end,
         ));
     }
 
+    /**
+     * @return mixed
+     */
     public function getStart()
     {
         return $this->value['start'];
     }
 
+    /**
+     * @return mixed
+     */
     public function getEnd()
     {
         return $this->value['end'];

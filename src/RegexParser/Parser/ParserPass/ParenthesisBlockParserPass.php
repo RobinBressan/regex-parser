@@ -3,14 +3,22 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
-use RegexParser\Parser\Node\BlockNode;
-use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
+use RegexParser\Parser\Exception\ParserException;
+use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
 class ParenthesisBlockParserPass extends AbstractParserPass
 {
+    /**
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
+     *
+     * @throws ParserException
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $blocksFound = 0;
@@ -29,13 +37,13 @@ class ParenthesisBlockParserPass extends AbstractParserPass
 
             // Looking for `(` pattern
             if ($token->is('T_LEFT_PARENTHESIS')) {
-                $blocksFound++;
+                ++$blocksFound;
 
                 if ($blocksFound > 1) {
                     // We matched a nested parenthesis so we ignore it
                     $stack[] = $token;
                 }
-            } else if ($blocksFound > 0 && $token->is('T_RIGHT_PARENTHESIS')) {
+            } elseif ($blocksFound > 0 && $token->is('T_RIGHT_PARENTHESIS')) {
                 if ($blocksFound === 1) {
                     $result[] = new BlockNode(
                         $this
@@ -48,10 +56,10 @@ class ParenthesisBlockParserPass extends AbstractParserPass
                 } else {
                     $stack[] = $token;
                 }
-                $blocksFound--;
-            } else if ($blocksFound > 0) {
+                --$blocksFound;
+            } elseif ($blocksFound > 0) {
                 $stack[] = $token;
-            }  else if ($blocksFound === 0 && $token->is('T_RIGHT_PARENTHESIS')) {
+            } elseif ($blocksFound === 0 && $token->is('T_RIGHT_PARENTHESIS')) {
                 throw new ParserException('Parenthesis block not opened');
             } else {
                 $result[] = $token;
@@ -63,6 +71,7 @@ class ParenthesisBlockParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

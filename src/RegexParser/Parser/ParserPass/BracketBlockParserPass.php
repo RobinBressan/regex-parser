@@ -3,14 +3,22 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
-use RegexParser\Parser\Node\BlockNode;
-use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
+use RegexParser\Parser\Exception\ParserException;
+use RegexParser\Parser\Node\BlockNode;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
 class BracketBlockParserPass extends AbstractParserPass
 {
+    /**
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
+     *
+     * @throws ParserException
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $blocksFound = 0;
@@ -29,19 +37,19 @@ class BracketBlockParserPass extends AbstractParserPass
 
             // Looking for `[` pattern
             if ($token->is('T_LEFT_BRACKET')) {
-                $blocksFound++;
+                ++$blocksFound;
 
                 if ($blocksFound > 1) {
                     // We matched a nested parenthesis so we ignore it
                     $stack[] = $token;
                 }
-            } else if ($blocksFound > 0 && $token->is('T_RIGHT_BRACKET')) {
+            } elseif ($blocksFound > 0 && $token->is('T_RIGHT_BRACKET')) {
                 if ($blocksFound === 1) {
                     $result[] = new BlockNode(
                         $this
                             ->parser
                             ->parseStream(new Stream($stack), 'BracketBlockParserPass', array(
-                                'BracketBlockParserPass'
+                                'BracketBlockParserPass',
                             ))
                             ->input()
                     );
@@ -49,10 +57,10 @@ class BracketBlockParserPass extends AbstractParserPass
                 } else {
                     $stack[] = $token;
                 }
-                $blocksFound--;
-            } else if ($blocksFound > 0) {
+                --$blocksFound;
+            } elseif ($blocksFound > 0) {
                 $stack[] = $token;
-            }  else if ($blocksFound === 0 && $token->is('T_RIGHT_BRACKET')) {
+            } elseif ($blocksFound === 0 && $token->is('T_RIGHT_BRACKET')) {
                 throw new ParserException('Bracket block not opened');
             } else {
                 $result[] = $token;
@@ -64,6 +72,7 @@ class BracketBlockParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

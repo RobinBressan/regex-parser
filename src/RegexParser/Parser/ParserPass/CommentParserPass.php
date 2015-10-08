@@ -3,20 +3,28 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
-use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
+use RegexParser\Parser\Exception\ParserException;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
 class CommentParserPass extends AbstractParserPass
 {
+    /**
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
+     *
+     * @throws ParserException
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $commentFound = false;
         $stack = array();
         $result = array();
 
-        while($token = $stream->next()) {
+        while ($token = $stream->next()) {
             if ($stream->cursor() < 2 || !($token instanceof TokenInterface)) {
                 $result[] = $token;
                 continue;
@@ -32,11 +40,11 @@ class CommentParserPass extends AbstractParserPass
                 // We remove (? from result
                 array_pop($result);
                 array_pop($result);
-            } else if ($commentFound && $token->is('T_RIGHT_PARENTHESIS')) {
+            } elseif ($commentFound && $token->is('T_RIGHT_PARENTHESIS')) {
                 // $stack contains our comment but we don't keep it
                 $commentFound = false;
                 $stack = array();
-            } else if ($commentFound) {
+            } elseif ($commentFound) {
                 $stack[] = $token;
             } else {
                 $result[] = $token;
@@ -44,10 +52,11 @@ class CommentParserPass extends AbstractParserPass
         }
 
         if ($commentFound) {
-            throw new ParserException("Comment not closed");
+            throw new ParserException('Comment not closed');
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }

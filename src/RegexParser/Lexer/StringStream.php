@@ -6,6 +6,9 @@ use RegexParser\Stream;
 
 class StringStream extends Stream
 {
+    /**
+     * @param string $input
+     */
     public function __construct($input)
     {
         $strlen = mb_strlen($input);

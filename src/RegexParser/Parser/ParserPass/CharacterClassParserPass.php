@@ -3,14 +3,20 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
+use RegexParser\Parser\AbstractParserPass;
 use RegexParser\Parser\Node\CharacterClassNode;
 use RegexParser\Parser\Node\TokenNode;
-use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
 class CharacterClassParserPass extends AbstractParserPass
 {
+    /**
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $result = array();
@@ -45,25 +51,30 @@ class CharacterClassParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 
     /**
-     * Valid that the two tokens of a character class are valid
-     * @param  TokeInterface   $previous
-     * @param  TokenInterface  $next
-     * @return boolean
+     * Checks if two tokens of a character class are valid.
+     *
+     * @param TokenInterface $previous
+     * @param TokenInterface $next
+     * @param string|null    $parentPass
+     *
+     * @return bool
      */
     private function isPreviousNextTokenValid($previous, $next, $parentPass)
     {
         if ($parentPass !== 'BracketBlockParserPass') {
             return false;
-        } else if ($previous->is('T_INTEGER') && $next->is('T_INTEGER')) {
+        } elseif ($previous->is('T_INTEGER') && $next->is('T_INTEGER')) {
             return $previous->getValue() < $next->getValue();
-        } else if ($previous->is('T_CHAR') && $next->is('T_CHAR')) {
+        } elseif ($previous->is('T_CHAR') && $next->is('T_CHAR')) {
             if ($next->getValue() <= 'Z') { // Need to be first because Z < z
+
                 return $previous->getValue() >= 'A';
-            } else if ($next->getValue() <= 'z') {
+            } elseif ($next->getValue() <= 'z') {
                 return $previous->getValue() >= 'a';
             }
 

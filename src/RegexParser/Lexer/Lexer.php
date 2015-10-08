@@ -3,16 +3,27 @@
 namespace RegexParser\Lexer;
 
 use RegexParser\Lexer\Exception\LexerException;
-use Symfony\Component\Yaml\Parser;
 
 class Lexer
 {
+    /**
+     * @var StringStream
+     */
     protected $stream;
 
+    /**
+     * @var string
+     */
     protected $currentChar;
 
+    /**
+     * @var null|array
+     */
     protected static $lexemeMap = null;
 
+    /**
+     * @param StringStream $stream
+     */
     public function __construct(StringStream $stream)
     {
         $this->stream = $stream;
@@ -22,16 +33,29 @@ class Lexer
         }
     }
 
+    /**
+     * @param string $input
+     *
+     * @return Lexer
+     */
     public static function create($input)
     {
         return new self(new StringStream($input));
     }
 
+    /**
+     * @return StringStream
+     */
     public function getStream()
     {
         return $this->stream;
     }
 
+    /**
+     * @throws LexerException
+     *
+     * @return Token|EscapeToken|void
+     */
     public function nextToken()
     {
         if (($char = $this->stream->next()) === false) {
@@ -45,7 +69,7 @@ class Lexer
         }
 
         if ($this->isInteger($char)) {
-            return new Token('T_INTEGER', (int)$char);
+            return new Token('T_INTEGER', (int) $char);
         }
 
         if ($this->isAlpha($char) || $this->isWhitespace($char)) {
@@ -56,6 +80,7 @@ class Lexer
             $readAt1 = $this->stream->readAt(1);
             if ($readAt1 === '\\') {
                 $this->stream->next();
+
                 return new Token('T_BACKSLASH', '\\');
             }
 
@@ -67,11 +92,11 @@ class Lexer
                 return new EscapeToken('T_UNICODE_X', 'X');
             }
 
-            if(isset(self::$lexemeMap[$readAt1]) && mb_substr(self::$lexemeMap[$readAt1], 0, strlen('T_ANY')) === 'T_ANY') {
+            if (isset(self::$lexemeMap[$readAt1]) && mb_substr(self::$lexemeMap[$readAt1], 0, strlen('T_ANY')) === 'T_ANY') {
                 return new EscapeToken(self::$lexemeMap[$readAt1], $readAt1);
             }
 
-            if(isset(self::$lexemeMap[mb_strtolower($readAt1)]) && mb_substr(self::$lexemeMap[mb_strtolower($readAt1)], 0, strlen('T_ANY')) === 'T_ANY') {
+            if (isset(self::$lexemeMap[mb_strtolower($readAt1)]) && mb_substr(self::$lexemeMap[mb_strtolower($readAt1)], 0, strlen('T_ANY')) === 'T_ANY') {
                 return new EscapeToken(self::$lexemeMap[mb_strtolower($readAt1)], $readAt1, true);
             }
 
@@ -81,6 +106,11 @@ class Lexer
         throw new LexerException(sprintf('Unknown token %s at %s', $char, $this->stream->cursor()));
     }
 
+    /**
+     * @throws LexerException
+     *
+     * @return EscapeToken|void
+     */
     protected function readUnicode()
     {
         $isExclusionSequence = $this->stream->next() === 'P';
@@ -115,24 +145,44 @@ class Lexer
         throw new LexerException(sprintf('Unknown unicode token %s at %s', $token, $this->stream->cursor()));
     }
 
+    /**
+     * @param string $char
+     *
+     * @return bool
+     */
     protected function isWhitespace($char)
     {
         // IE treats non-breaking space as \u00A0
-        return ($char === " " || $char === "\r" || $char === "\t" ||
+        return ($char === ' ' || $char === "\r" || $char === "\t" ||
                 $char === "\n" || $char === "\v" || $char === "\u00A0");
     }
 
+    /**
+     * @param string $char
+     *
+     * @return bool
+     */
     protected function isInteger($char)
     {
         return $char >= '0' && $char <= '9';
     }
 
+    /**
+     * @param string $char
+     *
+     * @return bool
+     */
     protected function isAlpha($char)
     {
         return ($char >= 'a' && $char <= 'z') ||
                ($char >= 'A' && $char <= 'Z');
     }
 
+    /**
+     * @param string $char
+     *
+     * @return bool
+     */
     protected function isNewLine($char)
     {
         return $char === "\r" || $char === "\n";

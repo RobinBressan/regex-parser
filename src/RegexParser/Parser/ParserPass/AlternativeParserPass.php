@@ -3,14 +3,22 @@
 namespace RegexParser\Parser\ParserPass;
 
 use RegexParser\Lexer\TokenInterface;
+use RegexParser\Parser\AbstractParserPass;
 use RegexParser\Parser\Node\AlternativeNode;
 use RegexParser\Parser\Node\TokenNode;
-use RegexParser\Parser\AbstractParserPass;
-use RegexParser\StreamInterface;
 use RegexParser\Stream;
+use RegexParser\StreamInterface;
 
 class AlternativeParserPass extends AbstractParserPass
 {
+    /**
+     * @param StreamInterface $stream
+     * @param string|null     $parentPass
+     *
+     * @throws ParserException
+     *
+     * @return Stream
+     */
     public function parseStream(StreamInterface $stream, $parentPass = null)
     {
         $result = array();
@@ -43,7 +51,6 @@ class AlternativeParserPass extends AbstractParserPass
                     $previous = new TokenNode($previous);
                 }
 
-
                 $next = $stream->next();
                 if ($next instanceof TokenInterface) {
                     $next = new TokenNode($next);
@@ -56,6 +63,7 @@ class AlternativeParserPass extends AbstractParserPass
         }
 
         unset($stream);
+
         return new Stream($result);
     }
 }
