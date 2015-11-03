@@ -156,7 +156,7 @@ To run the test you must run `phpunit` command.
 Contributing
 ------------
 
-All contributions are welcome and must pass the tests. If you add a new feature, please write tests for it.
+All contributions are welcome. If you add a new feature, ensure all tests are green!
 
 License
 -------
